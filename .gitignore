@@ -1,5 +1,4 @@
 .settings/
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -11,5 +10,6 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 *.properties
-.idea/
+target/
+idea/
 *.iml
