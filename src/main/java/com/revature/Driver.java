@@ -1,11 +1,11 @@
 package com.revature;
 
-import java.util.Scanner;
+import com.revature.connectivity.ConnectionManager;
 
 public class Driver {
 
 
     public static void main(String[] args) {
-
+        ConnectionManager.getConnection();
     }
 }
