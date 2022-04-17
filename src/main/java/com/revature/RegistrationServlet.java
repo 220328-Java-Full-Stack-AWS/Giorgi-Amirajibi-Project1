@@ -11,15 +11,25 @@ import java.io.IOException;
 public class RegistrationServlet extends HttpServlet {
     String username;
     String password;
+    String firstName;
+    String lastName;
+    String email;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         username = req.getParameter("username");
         password = req.getParameter("password");
+        firstName = req.getParameter("firstname");
+        lastName = req.getParameter("lastname");
+        email = req.getParameter("email");
+
 
         try {
             resp.getWriter().println(username);
             resp.getWriter().println(password);
+            resp.getWriter().println(firstName);
+            resp.getWriter().println(lastName);
+            resp.getWriter().println(email);
         }
         catch (IOException e) {
             e.printStackTrace();
