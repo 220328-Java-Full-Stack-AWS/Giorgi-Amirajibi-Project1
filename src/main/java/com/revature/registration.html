@@ -9,9 +9,9 @@
     <div class="container" style="display: inline-block">
         <h2>Registration</h2>
         <p>Enter username and password</p>
-        <form class="form" action="RegistrationServlet">
-            <p><input type="text" placeholder="username"></p>
-            <p><input type="password" placeholder="password"></p>
+        <form class="form" action="RegistrationServlet" method="POST">
+            <p><input type="text" name="username" placeholder="username" required="required"></p>
+            <p><input type="password" name="password" placeholder="password" required="required"></p>
             <p><input type="submit" name="Submit"></p>
         </form>
     </div>
