@@ -3,10 +3,11 @@ import com.revature.connectivity.ConnectionManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UserCRUD implements CRUDInterface<User>{
     @Override
-    public User read(User user) {
+    public User select(User user) {
 
         try {
             ResultSet resultSet = null;
@@ -35,14 +36,24 @@ public class UserCRUD implements CRUDInterface<User>{
     public User insert(User user) {
 
         try {
-            String sql = "INSERT INTO ers_users (ers_username,ers_password,user_first_name,user_last_name,user_email) values (?,?,?,?,?)";
-            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+
+            String sql = "INSERT INTO ers_user_roles (user_role) values (?)";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1,user.userRole);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet.next();
+
+            String sql1 = "INSERT INTO ers_users (ers_username,ers_password,user_first_name,user_last_name,user_email,user_role_id) values (?,?,?,?,?,?)";
+            preparedStatement = ConnectionManager.getConnection().prepareStatement(sql1);
             preparedStatement.setString(1,user.userName);
             preparedStatement.setString(2,user.password);
             preparedStatement.setString(3,user.firstName);
             preparedStatement.setString(4,user.lastName);
             preparedStatement.setString(5,user.email);
+            preparedStatement.setInt(6,resultSet.getInt(1));
             preparedStatement.executeUpdate();
+
             System.out.println("Insertion Successful");
         }
         catch (SQLException e) {
@@ -76,7 +87,23 @@ public class UserCRUD implements CRUDInterface<User>{
     @Override
     public User delete(User user) {
 
+        try {
+            String sql = "DELETE FROM ers_users WHERE ers_username = ?";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1,user.userName);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return user;
+    }
+
+    @Override
+    public ResultSet selectAll() {
+        ResultSet resultSet = null;
+
+        return resultSet;
     }
 }
