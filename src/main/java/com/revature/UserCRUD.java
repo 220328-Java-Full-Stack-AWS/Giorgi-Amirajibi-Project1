@@ -13,7 +13,7 @@ public class UserCRUD implements CRUDInterface<User>{
             ResultSet resultSet = null;
             String sql = "SELECT ers_username FROM ers_users WHERE ers_username = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            preparedStatement.setString(1,user.userName);
+            preparedStatement.setString(1,user.username);
             if (preparedStatement.execute()){
                 resultSet = preparedStatement.getResultSet();
             }
@@ -46,7 +46,7 @@ public class UserCRUD implements CRUDInterface<User>{
 
             String sql1 = "INSERT INTO ers_users (ers_username,ers_password,user_first_name,user_last_name,user_email,user_role_id) values (?,?,?,?,?,?)";
             preparedStatement = ConnectionManager.getConnection().prepareStatement(sql1);
-            preparedStatement.setString(1,user.userName);
+            preparedStatement.setString(1,user.username);
             preparedStatement.setString(2,user.password);
             preparedStatement.setString(3,user.firstName);
             preparedStatement.setString(4,user.lastName);
@@ -68,12 +68,12 @@ public class UserCRUD implements CRUDInterface<User>{
         try {
             String sql = "UPDATE ers_users SET ers_username = ?, ers_password = ?, user_first_name = ?, user_last_name = ?, user_email = ? WHERE ers_username = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            preparedStatement.setString(1,userToUpdateWith.userName);
+            preparedStatement.setString(1,userToUpdateWith.username);
             preparedStatement.setString(2,userToUpdateWith.password);
             preparedStatement.setString(3,userToUpdateWith.firstName);
             preparedStatement.setString(4,userToUpdateWith.lastName);
             preparedStatement.setString(5,userToUpdateWith.email);
-            preparedStatement.setString(6,userToUpdate.userName);
+            preparedStatement.setString(6,userToUpdate.username);
 
             preparedStatement.executeUpdate();
 
@@ -88,9 +88,21 @@ public class UserCRUD implements CRUDInterface<User>{
     public User delete(User user) {
 
         try {
-            String sql = "DELETE FROM ers_users WHERE ers_username = ?";
+            String sql = "SELECT user_role_id FROM ers_users WHERE ers_username = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            preparedStatement.setString(1,user.userName);
+            preparedStatement.setString(1,user.username);
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            resultSet.next();
+
+            String sql1 = "DELETE FROM ers_users WHERE ers_username = ?";
+            preparedStatement = ConnectionManager.getConnection().prepareStatement(sql1);
+            preparedStatement.setString(1,user.username);
+            preparedStatement.executeUpdate();
+
+            String sql2 = "DELETE FROM ers_user_roles WHERE ers_user_role_id = ?";
+            preparedStatement = ConnectionManager.getConnection().prepareStatement(sql2);
+            preparedStatement.setInt(1,resultSet.getInt(resultSet.findColumn("user_role_id")));
             preparedStatement.executeUpdate();
         }
         catch (SQLException e) {
@@ -103,6 +115,8 @@ public class UserCRUD implements CRUDInterface<User>{
     @Override
     public ResultSet selectAll() {
         ResultSet resultSet = null;
+
+
 
         return resultSet;
     }

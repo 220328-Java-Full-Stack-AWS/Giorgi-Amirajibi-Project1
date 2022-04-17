@@ -1,7 +1,5 @@
 package com.revature;
 
-import com.revature.connectivity.ConnectionManager;
-
 public class Driver {
 
 
@@ -11,9 +9,11 @@ public class Driver {
         UserCRUD userCRUD = new UserCRUD();
 
         //userCRUD.delete(user);
-        userCRUD.insert(user);
+        //userCRUD.delete(newUser);
+        //userCRUD.insert(user);
         //userCRUD.read(user);
         //userCRUD.update(user,newUser);
+
 
 
     }

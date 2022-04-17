@@ -5,7 +5,7 @@ public class User extends AbstractUser{
 
     }
     public User(String username, String password, String firstname, String lastname, String email){
-        this.userName = username;
+        this.username = username;
         this.password = password;
         this.firstName = firstname;
         this.lastName = lastname;
@@ -13,4 +13,8 @@ public class User extends AbstractUser{
         this.userRole = "Regular";
     }
 
+    @Override
+    public String toString() {
+        return "Username : " + username + "\n" + "First Name: " + firstName + "\n" + "Last Name: " + lastName + "\n" + "Email: " + email;
+    }
 }

@@ -1,7 +1,7 @@
 package com.revature;
 
 public abstract class AbstractUser {
-    protected String userName;
+    protected String username;
     protected String password;
     protected String firstName;
     protected String lastName;
@@ -10,11 +10,11 @@ public abstract class AbstractUser {
     protected String userRole;
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
