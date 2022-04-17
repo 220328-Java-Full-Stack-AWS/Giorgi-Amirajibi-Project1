@@ -64,7 +64,9 @@ public class UserCRUD implements CRUDInterface<User>{
 
     @Override
     public User update(User userToUpdate, User userToUpdateWith) {
-
+            /*
+                        NEED A LOGIC FOR UPDATING USER ROLE!
+            */
         try {
             String sql = "UPDATE ers_users SET ers_username = ?, ers_password = ?, user_first_name = ?, user_last_name = ?, user_email = ? WHERE ers_username = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
@@ -116,6 +118,18 @@ public class UserCRUD implements CRUDInterface<User>{
     public ResultSet selectAll() {
         ResultSet resultSet = null;
 
+        try {
+            String sql = "SELECT * FROM ers_users";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+            while(resultSet.next()){
+                System.out.println(resultSet.getString(resultSet.findColumn("ers_username")));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         return resultSet;

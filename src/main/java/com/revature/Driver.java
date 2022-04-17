@@ -11,6 +11,8 @@ public class Driver {
         //userCRUD.delete(user);
         //userCRUD.delete(newUser);
         //userCRUD.insert(user);
+        //userCRUD.insert(newUser);
+        userCRUD.selectAll();
         //userCRUD.read(user);
         //userCRUD.update(user,newUser);
 
