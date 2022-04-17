@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "UsernameValidationServlet", urlPatterns = {"/UsernameValidationServlet"})
+@WebServlet("/UsernameValidationServlet")
 public class UsernameValidationServlet extends HttpServlet {
 
     @Override
@@ -24,21 +24,28 @@ public class UsernameValidationServlet extends HttpServlet {
 
         try {
             String sql = "SELECT * FROM ers_users WHERE ers_username = ?";
+            Class.forName("org.postgresql.Driver");
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
             preparedStatement.setString(1,username);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
             if(resultSet.next()){
+                System.out.println(resultSet.getString(resultSet.findColumn("ers_username")));
                 resp.setContentType("text/html");
                 PrintWriter out = resp.getWriter();
-                out.print("Already Exists");
+                out.println("Already Exists");
             }
             else{
                 resp.setContentType("text/html");
                 PrintWriter out = resp.getWriter();
-                out.print("Available");
+                out.println("Available");
             }
         }
         catch (SQLException e){
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e){
             e.printStackTrace();
         }
     }
