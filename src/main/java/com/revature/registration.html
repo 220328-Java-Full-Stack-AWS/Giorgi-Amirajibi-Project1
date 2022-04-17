@@ -10,7 +10,8 @@
         <h2>Registration</h2>
         <p>Enter username and password</p>
         <form class="form" action="RegistrationServlet" method="POST">
-            <p><input type="text" id="myuser" name="username" placeholder="username" required="required"></p>
+            <p><input type="text" id="username" name="username" placeholder="username" required="required"></p>
+            <span class="span" id="result"></span>
             <p><input type="text" name="firstname" placeholder="First Name" required="required"></p>
             <p><input type="text" name="lastname" placeholder="Last Name" required="required"></p>
             <p><input type="text" name="email" placeholder="Email" required="required"></p>
@@ -20,11 +21,15 @@
     </div>
     <script>
         $(document).ready(function(){
-            $('myuser').change(function()){
-                var myuser = $('#myuser').val();
+            $('#myuser').change(function(){
+                var username = $('#username').val();
                 $.ajax({
                     type: 'POST',
-                    data:
+                    data: {username:username},
+                    url:'/UsernameValidationServlet',
+                    success: function(result){
+                        $('#result').html(result);
+                    }
                 });
             });
         });
