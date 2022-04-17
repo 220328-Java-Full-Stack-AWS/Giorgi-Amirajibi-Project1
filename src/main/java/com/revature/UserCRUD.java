@@ -33,6 +33,7 @@ public class UserCRUD implements CRUDInterface<User>{
 
     @Override
     public User insert(User user) {
+
         try {
             String sql = "INSERT INTO ers_users (ers_username,ers_password,user_first_name,user_last_name,user_email) values (?,?,?,?,?)";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
@@ -51,12 +52,31 @@ public class UserCRUD implements CRUDInterface<User>{
     }
 
     @Override
-    public User update(User user) {
-        return null;
+    public User update(User userToUpdate, User userToUpdateWith) {
+
+        try {
+            String sql = "UPDATE ers_users SET ers_username = ?, ers_password = ?, user_first_name = ?, user_last_name = ?, user_email = ? WHERE ers_username = ?";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1,userToUpdateWith.userName);
+            preparedStatement.setString(2,userToUpdateWith.password);
+            preparedStatement.setString(3,userToUpdateWith.firstName);
+            preparedStatement.setString(4,userToUpdateWith.lastName);
+            preparedStatement.setString(5,userToUpdateWith.email);
+            preparedStatement.setString(6,userToUpdate.userName);
+
+            preparedStatement.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userToUpdateWith;
     }
 
     @Override
     public User delete(User user) {
-        return null;
+
+
+        return user;
     }
 }
