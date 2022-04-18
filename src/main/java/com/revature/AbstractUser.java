@@ -7,7 +7,7 @@ public abstract class AbstractUser {
     protected String lastName;
     protected String email;
 
-    protected String userRole;
+    protected int userRoleId;
 
     public String getUserName() {
         return username;

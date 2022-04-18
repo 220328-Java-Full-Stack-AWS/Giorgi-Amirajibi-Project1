@@ -1,9 +1,12 @@
 package com.revature;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.SecureRandom;
 
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
@@ -21,17 +24,13 @@ public class RegistrationServlet extends HttpServlet {
         lastName = req.getParameter("lastname");
         email = req.getParameter("email");
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
+        password = encoder.encode(password);
 
-        try {
-            resp.getWriter().println(username);
-            resp.getWriter().println(password);
-            resp.getWriter().println(firstName);
-            resp.getWriter().println(lastName);
-            resp.getWriter().println(email);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        User newUser = new User(username,password,firstName,lastName,email);
+        UserCRUD userCRUD = new UserCRUD();
+        userCRUD.insert(newUser);
+
 
     }
 }

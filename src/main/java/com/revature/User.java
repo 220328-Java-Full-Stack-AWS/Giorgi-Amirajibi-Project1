@@ -10,7 +10,7 @@ public class User extends AbstractUser{
         this.firstName = firstname;
         this.lastName = lastname;
         this.email = email;
-        this.userRole = "Regular";
+        this.userRoleId = 1;
     }
 
     @Override

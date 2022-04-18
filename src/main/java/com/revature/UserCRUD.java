@@ -36,22 +36,23 @@ public class UserCRUD implements CRUDInterface<User>{
     public User insert(User user) {
 
         try {
-
+            /*
             String sql = "INSERT INTO ers_user_roles (user_role) values (?)";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1,user.userRole);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
+            */
 
             String sql1 = "INSERT INTO ers_users (ers_username,ers_password,user_first_name,user_last_name,user_email,user_role_id) values (?,?,?,?,?,?)";
-            preparedStatement = ConnectionManager.getConnection().prepareStatement(sql1);
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql1);
             preparedStatement.setString(1,user.username);
             preparedStatement.setString(2,user.password);
             preparedStatement.setString(3,user.firstName);
             preparedStatement.setString(4,user.lastName);
             preparedStatement.setString(5,user.email);
-            preparedStatement.setInt(6,resultSet.getInt(1));
+            preparedStatement.setInt(6,user.userRoleId);
             preparedStatement.executeUpdate();
 
             System.out.println("Insertion Successful");
