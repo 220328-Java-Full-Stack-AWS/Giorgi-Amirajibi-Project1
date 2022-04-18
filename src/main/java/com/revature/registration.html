@@ -12,7 +12,7 @@
         <p>Enter username and password</p>
         <form class="form" action="RegistrationServlet" method="POST">
             <p><input type="text" id="username" name="username" placeholder="username" required="required"></p>
-            <span class="span" id="result">something</span>
+            <span class="span" id="result"></span>
             <p><input type="text" name="firstname" placeholder="First Name" required="required"></p>
             <p><input type="text" name="lastname" placeholder="Last Name" required="required"></p>
             <p><input type="text" name="email" placeholder="Email" required="required"></p>
@@ -29,7 +29,13 @@
                     data: {username:username},
                     url:'UsernameValidationServlet',
                     success: function(result){
-                            $('#result').css('border-top','3px solid red');
+                        if (result == 1){
+                            $('#result').css('border-top', '3px solid red');
+                        }
+                        else{
+                            $('#result').css('border-top', '3px solid green');
+                        }
+
                     }
                 });
             });

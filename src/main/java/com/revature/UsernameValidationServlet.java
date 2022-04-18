@@ -1,7 +1,5 @@
 package com.revature;
-
 import com.revature.connectivity.ConnectionManager;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,14 +29,14 @@ public class UsernameValidationServlet extends HttpServlet {
 
             if(resultSet.next()){
                 System.out.println(resultSet.getString(resultSet.findColumn("ers_username")));
-                resp.setContentType("text/html");
+                resp.setContentType("text/plain");
                 PrintWriter out = resp.getWriter();
-                out.println("Already Exists");
+                out.println(1);
             }
             else{
-                resp.setContentType("text/html");
+                resp.setContentType("text/plain");
                 PrintWriter out = resp.getWriter();
-                out.println("Available");
+                out.println(0);
             }
         }
         catch (SQLException e){
