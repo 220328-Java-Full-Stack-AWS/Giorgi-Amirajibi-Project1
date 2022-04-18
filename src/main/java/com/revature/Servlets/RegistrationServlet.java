@@ -1,4 +1,6 @@
-package com.revature;
+package com.revature.Servlets;
+import com.revature.Models.User;
+import com.revature.DAO.UserDAO;
 import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -30,6 +32,7 @@ public class RegistrationServlet extends HttpServlet {
         user.put("firstname", req.getParameter("firstname"));
         user.put("lastname", req.getParameter("lastname"));
         user.put("email", req.getParameter("email"));
+
 
         UserDAO userDAO = new UserDAO();
 

@@ -1,5 +1,5 @@
 package com.revature;
-import com.revature.connectivity.ConnectionManager;
+import com.revature.Connectivity.ConnectionManager;
 import org.json.JSONObject;
 
 import java.sql.PreparedStatement;

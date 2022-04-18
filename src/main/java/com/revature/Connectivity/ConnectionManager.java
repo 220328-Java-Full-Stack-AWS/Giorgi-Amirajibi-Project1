@@ -1,6 +1,4 @@
-package com.revature.connectivity;
-
-import org.json.JSONObject;
+package com.revature.Connectivity;
 
 import java.io.IOException;
 import java.io.InputStream;

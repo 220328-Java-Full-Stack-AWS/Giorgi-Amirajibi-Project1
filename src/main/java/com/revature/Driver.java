@@ -1,5 +1,7 @@
 package com.revature;
 
+import com.revature.Models.User;
+
 public class Driver {
 
 

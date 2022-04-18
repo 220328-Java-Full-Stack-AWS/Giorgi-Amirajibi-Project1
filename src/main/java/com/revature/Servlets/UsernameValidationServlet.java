@@ -1,5 +1,5 @@
-package com.revature;
-import com.revature.connectivity.ConnectionManager;
+package com.revature.Servlets;
+import com.revature.Connectivity.ConnectionManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -1,6 +1,7 @@
-package com.revature;
+package com.revature.DAO;
 
-import com.revature.connectivity.ConnectionManager;
+import com.revature.CRUDInterface;
+import com.revature.Connectivity.ConnectionManager;
 import org.json.JSONObject;
 
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ public class UserDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject insert(JSONObject user) {
-        System.out.println(user);
+
         JSONObject status = new JSONObject();
 
         try {
@@ -39,7 +40,6 @@ public class UserDAO implements CRUDInterface<JSONObject> {
             preparedStatement.setInt(6,1);
 
             rowCount = preparedStatement.executeUpdate();
-            System.out.println(rowCount);
 
             if (rowCount > 0){
                 status.put("status","success");

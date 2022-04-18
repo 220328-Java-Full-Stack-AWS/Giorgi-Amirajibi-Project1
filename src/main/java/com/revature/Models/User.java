@@ -1,6 +1,6 @@
-package com.revature;
+package com.revature.Models;
 
-public class User extends AbstractUser{
+public class User extends AbstractUser {
     public User(){
 
     }
