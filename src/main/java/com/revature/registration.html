@@ -12,11 +12,11 @@
         <p>Enter username and password</p>
         <form class="form" action="registration" method="POST">
             <p><input type="text" id="username" name="username" placeholder="username" required="required"></p>
-            <span class="span" id="result"></span>
+            <!--<span class="span" id="result"></span>-->
             <p><input type="text" name="firstname" placeholder="First Name" required="required"></p>
             <p><input type="text" name="lastname" placeholder="Last Name" required="required"></p>
             <p><input type="text" id="email" name="email" placeholder="Email" required="required"></p>
-            <span class="span" id="result1"></span>
+            <!--<span class="span" id="result1"></span>-->
             <p><input type="password" name="password" placeholder="password" required="required"></p>
             <p><input type="submit" name="Submit"></p>
         </form>
@@ -31,10 +31,12 @@
                     url:'UsernameValidationServlet',
                     success: function(result){
                         if (result == 1){
-                            $('#result').css('border-top', '3px solid red');
+                            //$('#result').css('border-top', '3px solid red');
+                            $('#username').css('outline', '2.5px solid red');
                         }
                         else{
-                            $('#result').css('border-top', '3px solid green');
+                            //$('#result').css('border-top', '3px solid green');
+                            $('#username').css('outline', '2.5px solid green');
                         }
 
                     }
@@ -52,10 +54,10 @@
                     url:'EmailValidationServlet',
                     success: function(result1){
                         if (result1 == 1){
-                            $('#result1').css('border-top', '3px solid red');
+                            $('#email').css('outline', '2.5px solid red');
                         }
                         else{
-                            $('#result1').css('border-top', '3px solid green');
+                            $('#email').css('outline', '2.5px solid green');
                         }
 
                     }
