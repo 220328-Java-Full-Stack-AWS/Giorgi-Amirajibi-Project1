@@ -28,7 +28,7 @@ public class UsernameValidationServlet extends HttpServlet {
             ResultSet resultSet = preparedStatement.getResultSet();
 
             if(resultSet.next()){
-                System.out.println(resultSet.getString(resultSet.findColumn("ers_username")));
+                //System.out.println(resultSet.getString(resultSet.findColumn("ers_username")));
                 resp.setContentType("text/plain");
                 PrintWriter out = resp.getWriter();
                 out.println(1);

@@ -32,11 +32,14 @@
                     success: function(result){
                         if (result == 1){
                             //$('#result').css('border-top', '3px solid red');
-                            $('#username').css('outline', '2.5px solid red');
+                            $('#username').css('border', '3px solid red');
+                            $('#username').css('border-radius', '1.5px');
                         }
                         else{
                             //$('#result').css('border-top', '3px solid green');
-                            $('#username').css('outline', '2.5px solid green');
+                            $('#username').css('border', '3px solid green');
+                            $('#username').css('border-radius', '1.5px');
+
                         }
 
                     }
@@ -54,10 +57,13 @@
                     url:'EmailValidationServlet',
                     success: function(result1){
                         if (result1 == 1){
-                            $('#email').css('outline', '2.5px solid red');
+                            $('#email').css('border', '2.5px solid red');
+                            $('#email').css('border-radius', '1.5px');
+
                         }
                         else{
-                            $('#email').css('outline', '2.5px solid green');
+                            $('#email').css('border', '2.5px solid green');
+                            $('#email').css('border-radius', '1.5px');
                         }
 
                     }

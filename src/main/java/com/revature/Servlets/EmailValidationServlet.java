@@ -27,7 +27,7 @@ public class EmailValidationServlet extends HttpServlet {
             ResultSet resultSet = preparedStatement.getResultSet();
 
             if(resultSet.next()){
-                System.out.println(resultSet.getString(resultSet.findColumn("user_email")));
+                //System.out.println(resultSet.getString(resultSet.findColumn("user_email")));
                 resp.setContentType("text/plain");
                 PrintWriter out = resp.getWriter();
                 out.println(1);
