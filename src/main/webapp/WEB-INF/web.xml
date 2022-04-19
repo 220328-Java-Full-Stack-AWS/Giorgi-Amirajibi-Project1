@@ -38,6 +38,6 @@
     
         <servlet-mapping>
             <servlet-name>PingServlet</servlet-name>
-            <url-pattern>/Ping</url-pattern>
+            <url-pattern>/ping</url-pattern>
         </servlet-mapping>
 </web-app>

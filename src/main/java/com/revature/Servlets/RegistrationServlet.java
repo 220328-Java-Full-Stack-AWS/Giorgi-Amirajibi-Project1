@@ -14,7 +14,7 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/RegistrationServlet")
+@WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
     String username;
     String password;
