@@ -15,7 +15,8 @@
             <span class="span" id="result"></span>
             <p><input type="text" name="firstname" placeholder="First Name" required="required"></p>
             <p><input type="text" name="lastname" placeholder="Last Name" required="required"></p>
-            <p><input type="text" name="email" placeholder="Email" required="required"></p>
+            <p><input type="text" id="email" name="email" placeholder="Email" required="required"></p>
+            <span class="span" id="result1"></span>
             <p><input type="password" name="password" placeholder="password" required="required"></p>
             <p><input type="submit" name="Submit"></p>
         </form>
@@ -30,6 +31,27 @@
                     url:'UsernameValidationServlet',
                     success: function(result){
                         if (result == 1){
+                            $('#result').css('border-top', '3px solid red');
+                        }
+                        else{
+                            $('#result').css('border-top', '3px solid green');
+                        }
+
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#email').change(function(){
+                var email = $('#email').val();
+                $.ajax({
+                    type: 'POST',
+                    data: {email:email},
+                    url:'EmailValidationServlet',
+                    success: function(result1){
+                        if (result1 == 1){
                             $('#result').css('border-top', '3px solid red');
                         }
                         else{

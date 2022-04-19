@@ -1,4 +1,5 @@
 package com.revature.Servlets;
+import com.revature.Exceptions.RegistrationUnsuccessfulException;
 import com.revature.Models.User;
 import com.revature.DAO.UserDAO;
 import org.json.JSONObject;
@@ -23,6 +24,24 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        username = req.getParameter("username");
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
+        password = encoder.encode(req.getParameter("password"));
+        firstName = req.getParameter("firstname");
+        lastName = req.getParameter("lastname");
+        email = req.getParameter("email");
+
+        User currentUser = new User(username,password,firstName,lastName,email);
+        JSONObject currentUserJson = new JSONObject(currentUser);
+        UserDAO userDAO = new UserDAO();
+        JSONObject response = userDAO.insert(currentUserJson);
+
+        if (response.getString("status").equals("success")){
+            resp.setStatus(200);
+            resp.sendRedirect("login.html");
+        }
+        /*
         Map<String,String> user = new HashMap<>();
         user.put("username", req.getParameter("username"));
 
@@ -33,36 +52,16 @@ public class RegistrationServlet extends HttpServlet {
         user.put("lastname", req.getParameter("lastname"));
         user.put("email", req.getParameter("email"));
 
+         */
 
-        UserDAO userDAO = new UserDAO();
 
-        JSONObject response = userDAO.insert(new JSONObject(user));
-        if (response.getString("status").equals("success")){
-            resp.setStatus(200);
-            resp.sendRedirect("login.html");
-        }
+
+
+
         /*
         else{
             throw new UnableToRegisterException();
         }*/
-
-        username = req.getParameter("username");
-        password = req.getParameter("password");
-        firstName = req.getParameter("firstname");
-        lastName = req.getParameter("lastname");
-        email = req.getParameter("email");
-        password = encoder.encode(password);
-
-        User newUser = new User(username,password,firstName,lastName,email);
-        JSONObject jsonUser = new JSONObject(newUser);
-        System.out.println(jsonUser);
-
-        /*
-        User newUser = new User(username,password,firstName,lastName,email);
-        UserCRUD userCRUD = new UserCRUD();
-        userCRUD.insert(newUser);
-        */
-
 
     }
 }
