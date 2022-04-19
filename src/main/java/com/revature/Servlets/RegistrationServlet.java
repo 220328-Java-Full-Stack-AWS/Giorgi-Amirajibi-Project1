@@ -11,15 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
     String username;
     String password;
-    String firstName;
-    String lastName;
+    String firstname;
+    String lastname;
     String email;
 
     @Override
@@ -28,11 +26,11 @@ public class RegistrationServlet extends HttpServlet {
         username = req.getParameter("username");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
         password = encoder.encode(req.getParameter("password"));
-        firstName = req.getParameter("firstname");
-        lastName = req.getParameter("lastname");
+        firstname = req.getParameter("firstname");
+        lastname = req.getParameter("lastname");
         email = req.getParameter("email");
 
-        User currentUser = new User(username,password,firstName,lastName,email);
+        User currentUser = new User(username,password,firstname,lastname,email);
         JSONObject currentUserJson = new JSONObject(currentUser);
         UserDAO userDAO = new UserDAO();
         JSONObject response = userDAO.insert(currentUserJson);

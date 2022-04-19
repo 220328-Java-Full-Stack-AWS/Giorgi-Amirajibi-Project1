@@ -24,7 +24,16 @@ public class LoginServlet extends HttpServlet {
         currentUserJson.put("password", password);
 
         UserDAO userDAO = new UserDAO();
-        userDAO.select(currentUserJson);
+        JSONObject response = userDAO.select(currentUserJson);
+
+        if (response.getString("status").equals("success")){
+            resp.setStatus(200);
+            resp.sendRedirect("userPage.html");
+        }
+        else{
+            resp.setStatus(404);
+            resp.getWriter().println("There was an error");
+        }
 
 
     }

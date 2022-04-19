@@ -18,13 +18,13 @@ public class UserDAO implements CRUDInterface<JSONObject> {
 
         try {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
-            String sql = "SELECT ers_username FROM ers_users WHERE ers_username = ?";
+            String sql = "SELECT ers_username, ers_password FROM ers_users WHERE ers_username = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
             preparedStatement.setString(1,jsonObject.getString("username"));
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
-                if (encoder.matches(jsonObject.getString("password"),resultSet.getString(resultSet.findColumn("password")))){
+                if (encoder.matches(jsonObject.getString("password"),resultSet.getString(resultSet.findColumn("ers_password")))){
                     status.put("status","success");
                 }
                 else{
@@ -46,7 +46,7 @@ public class UserDAO implements CRUDInterface<JSONObject> {
     public JSONObject insert(JSONObject user) {
 
         JSONObject status = new JSONObject();
-
+        System.out.println(user);
         try {
             /*
             String sql = "INSERT INTO ers_user_roles (user_role) values (?)";
@@ -56,6 +56,7 @@ public class UserDAO implements CRUDInterface<JSONObject> {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();
             */
+
             int rowCount;
             String sql1 = "INSERT INTO ers_users (ers_username,ers_password,user_first_name,user_last_name,user_email,user_role_id) values (?,?,?,?,?,?)";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql1);

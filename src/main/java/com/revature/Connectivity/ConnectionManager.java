@@ -26,6 +26,7 @@ public class ConnectionManager {
 
             try {
                 properties.load(inputStream);
+                Class.forName(properties.getProperty("driver"));
                 String connectionString = "jdbc:postgresql://" + properties.getProperty("hostname") + ":" + properties.getProperty("port") + "/" + properties.getProperty("dbname");
                 connection = DriverManager.getConnection(connectionString,properties.getProperty("username"),properties.getProperty("password"));
                 System.out.println("Connection to Database was successful");
@@ -42,6 +43,9 @@ public class ConnectionManager {
                 e.printStackTrace();
             }
             catch (SQLException e){
+                e.printStackTrace();
+            }
+            catch (ClassNotFoundException e){
                 e.printStackTrace();
             }
         }
