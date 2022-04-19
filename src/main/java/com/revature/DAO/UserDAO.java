@@ -1,6 +1,6 @@
 package com.revature.DAO;
 
-import com.revature.CRUDInterface;
+import com.revature.Interfaces.CRUDInterface;
 import com.revature.Connectivity.ConnectionManager;
 import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

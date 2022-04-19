@@ -1,6 +1,8 @@
 package com.revature.Models;
 
-public class Admin extends AbstractUser{
+import com.revature.Abstract.AbstractUser;
+
+public class Admin extends AbstractUser {
 
     public Admin(String username, String password, String firstname, String lastname, String email){
         this.username = username;

@@ -1,12 +1,13 @@
 package com.revature;
 import com.revature.Connectivity.ConnectionManager;
+import com.revature.Interfaces.CRUDInterface;
 import org.json.JSONObject;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserCRUD implements CRUDInterface<JSONObject>{
+public class UserCRUD implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject select(JSONObject user) {

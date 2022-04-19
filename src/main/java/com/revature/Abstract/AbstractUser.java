@@ -1,4 +1,4 @@
-package com.revature.Models;
+package com.revature.Abstract;
 
 public abstract class AbstractUser {
     protected String username;
