@@ -1,10 +1,9 @@
 package com.revature.Servlets;
-import com.revature.Exceptions.RegistrationUnsuccessfulException;
+
 import com.revature.Models.User;
 import com.revature.DAO.UserDAO;
 import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +33,8 @@ public class RegistrationServlet extends HttpServlet {
         JSONObject currentUserJson = new JSONObject(currentUser);
         UserDAO userDAO = new UserDAO();
         JSONObject response = userDAO.insert(currentUserJson);
+
+
 
         if (response.getString("status").equals("success")){
             resp.setStatus(200);
