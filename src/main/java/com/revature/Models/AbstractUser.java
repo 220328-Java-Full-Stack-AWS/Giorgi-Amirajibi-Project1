@@ -6,7 +6,6 @@ public abstract class AbstractUser {
     protected String firstName;
     protected String lastName;
     protected String email;
-
     protected int userRoleId;
 
     public String getUserName() {
@@ -47,5 +46,13 @@ public abstract class AbstractUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getUserRoleId() {
+        return userRoleId;
+    }
+
+    public void setUserRoleId(int userRoleId) {
+        this.userRoleId = userRoleId;
     }
 }
