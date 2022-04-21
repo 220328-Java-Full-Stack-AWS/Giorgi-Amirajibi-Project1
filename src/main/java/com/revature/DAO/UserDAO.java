@@ -46,7 +46,7 @@ public class UserDAO implements CRUDInterface<JSONObject> {
     public JSONObject insert(JSONObject user) {
 
         JSONObject status = new JSONObject();
-        System.out.println(user);
+        //System.out.println(user);
         try {
             /*
             String sql = "INSERT INTO ers_user_roles (user_role) values (?)";
@@ -70,17 +70,17 @@ public class UserDAO implements CRUDInterface<JSONObject> {
             rowCount = preparedStatement.executeUpdate();
 
             if (rowCount > 0){
-                status.put("status","success");
+                user.put("status","success");
             }
             else{
-                status.put("status","failed");
+                user.put("status","failed");
             }
 
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return status;
+        return user;
     }
 
     @Override
@@ -90,7 +90,24 @@ public class UserDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject delete(JSONObject jsonObject) {
-        return null;
+
+        try {
+            String sql = "DELETE FROM ers_users WHERE ers_username = ?";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1,jsonObject.getString("username"));
+            if (preparedStatement.executeUpdate() > 0) {
+                jsonObject.put("status","success");
+            }
+            else{
+                jsonObject.put("status","failed");
+            }
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 
     @Override

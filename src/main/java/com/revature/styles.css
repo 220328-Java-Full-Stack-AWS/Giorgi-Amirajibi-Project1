@@ -15,9 +15,3 @@ body{
     text-align: center;
     box-sizing: border-box;
 }
-.span{
-    margin: auto;
-    display: table;
-    width:76%; /*or whatever width you want the effect of <hr>*/
-    border-top: 3px solid green
-}

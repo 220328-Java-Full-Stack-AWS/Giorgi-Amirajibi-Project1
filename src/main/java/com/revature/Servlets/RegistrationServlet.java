@@ -1,5 +1,7 @@
 package com.revature.Servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.revature.Models.User;
 import com.revature.DAO.UserDAO;
 import org.json.JSONObject;
@@ -29,10 +31,13 @@ public class RegistrationServlet extends HttpServlet {
         lastname = req.getParameter("lastname");
         email = req.getParameter("email");
 
+
         User currentUser = new User(username,password,firstname,lastname,email);
         JSONObject currentUserJson = new JSONObject(currentUser);
         UserDAO userDAO = new UserDAO();
         JSONObject response = userDAO.insert(currentUserJson);
+
+
 
 
 

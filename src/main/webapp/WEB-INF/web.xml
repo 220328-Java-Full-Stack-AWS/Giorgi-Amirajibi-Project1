@@ -30,14 +30,5 @@
             <servlet-name>login</servlet-name>
             <url-pattern>/login</url-pattern>
         </servlet-mapping>
-    
-        <servlet>
-            <servlet-name>PingServlet</servlet-name>
-            <servlet-class>com.revature.Servlets.PingServlet</servlet-class>
-        </servlet>
-    
-        <servlet-mapping>
-            <servlet-name>PingServlet</servlet-name>
-            <url-pattern>/ping</url-pattern>
-        </servlet-mapping>
+
 </web-app>

@@ -13,4 +13,8 @@ public class Admin extends AbstractUser {
         this.userRoleId = 2;
     }
 
+    public void changeUserRole(){
+
+    }
+
 }
