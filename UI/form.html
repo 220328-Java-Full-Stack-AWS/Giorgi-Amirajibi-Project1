@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoItem</title>
+</head>
+<body>
+    <form id="inputForm" method="POST" action="">
+        <label>Enter new task:</label>
+        <input type="text" id="task" name="task">
+        <br>
+        <label>Enter due date: (YYYY-MM-DD)</label>
+        <input type="text" id="date" name="date">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="view"></p>
+
+    <script>
+        window.onload = getItem(1);
+        //we need a fucntion to reach out and get data from our api
+        async function getItem(id){
+            console.log("test");
+            let response = await fetch(
+                "url",
+                {
+                    method: "GET",
+                    headers: 
+                    {
+                        "Content-Type":"application/json",
+                        "item_id":"1"
+                    }
+                }
+
+            );
+            console.log(response);
+            let json = response.json();
+
+            let view = document.getElementById("view");
+
+
+
+
+        }
+    </script>
+</body>
+</html>

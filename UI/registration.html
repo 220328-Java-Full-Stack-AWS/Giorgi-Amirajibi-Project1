@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" style="display: inline-block">
+        <h2>Registration</h2>
+        <p>Enter username and password</p>
+            <p><input type="text" id="username" name="username" placeholder="username"> </p>
+            <p><input type="text" id="firstname" name="firstname" placeholder="First Name"></p>
+            <p><input type="text" id="lastname" name="lastname" placeholder="Last Name" ></p>
+            <p><input type="text" id="email" name="email" placeholder="Email"></p>
+            <p><input type="password" id="password" name="password" placeholder="password"></p>
+            <p><input type="submit" id="submit" name="Submit" onclick="submitForm()"></p>
+    </div>
+    <script>
+        async function submitForm(){
+            let data = "username: " + document.getElementById("username").value;
+            data += "password: " + document.getElementById("password").value;
+            data += "firstname: " + document.getElementById("firstname").value;
+            data += "lastname: " + document.getElementById("lastname").value;
+            data += "email: " + document.getElementById("email").value;
+            let json = JSON.stringify(data);
+            let response = fetch(
+                "http://localhost:8080/Giorgi-Amirajibi-Project1/Servlets/RegistrationServlet.java",
+                {
+                    method: "POST",
+                    headers: 
+                    {
+                        ContentType: "application/json",
+                        item: "item1"
+                    },
+                    data: data
+                    
+                }
+            );
+            console.log(response);
+            
+        };
+    </script>
+</body>
+</html>
