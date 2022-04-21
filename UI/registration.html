@@ -26,13 +26,13 @@
             data += "email: " + document.getElementById("email").value;
             let json = JSON.stringify(data);
             let response = fetch(
-                "http://localhost:8080/Giorgi-Amirajibi-Project1/Servlets/RegistrationServlet.java",
+                "http://localhost:8080/Giorgi-Amirajibi-Project1/src/main/java/com/revature/Servlets/RegistrationServlet.java",
                 {
                     method: "POST",
                     headers: 
                     {
                         ContentType: "application/json",
-                        item: "item1"
+                        "item": "item1"
                     },
                     data: data
                     
