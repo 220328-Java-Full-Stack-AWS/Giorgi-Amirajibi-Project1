@@ -10,11 +10,11 @@
     <div class="container" style="display: inline-block">
         <h2>Registration</h2>
         <p>Enter username and password</p>
-            <p><input type="text" id="username" name="username" placeholder="username"> </p>
-            <p><input type="text" id="firstname" name="firstname" placeholder="First Name"></p>
-            <p><input type="text" id="lastname" name="lastname" placeholder="Last Name" ></p>
-            <p><input type="text" id="email" name="email" placeholder="Email"></p>
-            <p><input type="password" id="password" name="password" placeholder="password"></p>
+            <p><input type="text" id="username" name="username" placeholder="username" required="required" pattern="^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"> </p>
+            <p><input type="text" id="firstname" name="firstname" placeholder="First Name" required="required" pattern="^[A-Za-z]{2,100}"></p>
+            <p><input type="text" id="lastname" name="lastname" placeholder="Last Name" required="required" pattern="^[A-Za-z]{2,100}"></p>
+            <p><input type="text" id="email" name="email" placeholder="Email" required="required" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"></p>
+            <p><input type="password" id="password" name="password" placeholder="password" required="required"></p>
             <p><input type="submit" id="submit" name="Submit" onclick="submitForm()"></p>
     </div>
     <script>
@@ -26,21 +26,21 @@
             data += "email: " + document.getElementById("email").value;
             let json = JSON.stringify(data);
             let response = fetch(
-                "http://localhost:8080/Giorgi-Amirajibi-Project1/src/main/java/com/revature/Servlets/RegistrationServlet.java",
+                "../registration",
                 {
                     method: "POST",
                     headers: 
                     {
-                        "ContentType": "application/json",
-                        "item": "something"
+                        "Content-Type": "application/json",
+                        "item": "SUCCESS",
+                        "json" : json
                     },
-                    data: data
-                    
+
                 }
             );
             console.log(response);
             
-        };
+        }
     </script>
 </body>
 </html>
