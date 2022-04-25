@@ -27,8 +27,15 @@ public class LoginServlet extends HttpServlet {
         JSONObject response = userDAO.select(currentUser);
 
         if (response.getString("status").equals("success")){
-            resp.setStatus(200);
-            resp.sendRedirect("./UI/userPage.html");
+            if (response.getInt("user_role") == 1){
+                resp.setStatus(200);
+                resp.sendRedirect("./UI/userPage.html");
+            }
+            else if (response.getInt("user_role") == 2){
+                resp.setStatus(200);
+                resp.sendRedirect("./UI/Admin.html");
+            }
+
         }
         else {
             //exception

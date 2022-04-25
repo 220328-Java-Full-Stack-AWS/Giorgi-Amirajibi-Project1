@@ -1,13 +1,12 @@
 package com.revature.Interfaces;
-
-import java.sql.ResultSet;
+import java.util.List;
 
 public interface CRUDInterface<T> {
 
     T select(T t);
     T insert(T t);
-    T update(T a, T b);
+    T update(T t);
     T delete(T t);
-    ResultSet selectAll();
+    List<T> selectAll();
 
 }
