@@ -26,51 +26,26 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        JsonParser parser = new JsonParser();
-        System.out.println(parser.parse(req.getHeader("json")));
+        JSONObject receivedJSON = new JSONObject(req.getHeader("json"));
 
-        username = req.getParameter("username");
+        username = receivedJSON.getString("username");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
-        password = encoder.encode(req.getParameter("password"));
-        firstname = req.getParameter("firstname");
-        lastname = req.getParameter("lastname");
-        email = req.getParameter("email");
-
+        password = encoder.encode(receivedJSON.getString("password"));
+        firstname = receivedJSON.getString("firstname");
+        lastname = receivedJSON.getString("lastname");
+        email = receivedJSON.getString("email");
 
         User currentUser = new User(username,password,firstname,lastname,email);
         JSONObject currentUserJson = new JSONObject(currentUser);
         UserDAO userDAO = new UserDAO();
         JSONObject response = userDAO.insert(currentUserJson);
 
-
-
-
+        System.out.println(response);
 
         if (response.getString("status").equals("success")){
             resp.setStatus(200);
-            resp.sendRedirect("login.html");
+            resp.sendRedirect("./UI/login.html");
         }
-        /*
-        Map<String,String> user = new HashMap<>();
-        user.put("username", req.getParameter("username"));
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
-        user.put("password", encoder.encode(req.getParameter("password")));
-
-        user.put("firstname", req.getParameter("firstname"));
-        user.put("lastname", req.getParameter("lastname"));
-        user.put("email", req.getParameter("email"));
-
-         */
-
-
-
-
-
-        /*
-        else{
-            throw new UnableToRegisterException();
-        }*/
 
     }
 }

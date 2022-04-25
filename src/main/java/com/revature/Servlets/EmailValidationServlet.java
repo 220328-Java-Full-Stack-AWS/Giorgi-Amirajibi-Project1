@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet("/EmailValidationServlet")
+@WebServlet("/EmailValidator")
 public class EmailValidationServlet extends HttpServlet {
 
     @Override

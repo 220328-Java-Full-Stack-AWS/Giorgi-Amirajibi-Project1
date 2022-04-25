@@ -9,11 +9,39 @@
       <div class="container">
             <h2>Login</h2>
             <p>Enter username and password</p>
-            <form class="form" action="login">
-                <p><input type="text" name="username" placeholder="username" required="required"></p>
-                <p><input type="password" name="password" placeholder="password" required="required"></p>
-                <p><input type="submit" name="Submit" ></p>
-            </form>
+            <div>
+                <p><input type="text" id="username" name="username" placeholder="Username" required="required"></p>
+                <p><input type="password" id="password" name="password" placeholder="Password" required="required"></p>
+                <p><input type="submit" id="submit" name="Submit" onclick="submitForm()"></p>
+            </div>
       </div>
+
+      <script>
+
+          async function submitForm(){
+              let object = new Object();
+              object.username = document.getElementById("username").value;
+              object.password = document.getElementById("password").value;
+              let json = JSON.stringify(object);
+              let response = await fetch(
+                  "../login",
+                  {
+                      method: "GET",
+                      headers:
+                          {
+                              "Content-Type": "application/json",
+                              "json" : json
+                          },
+
+                  }
+              );
+
+              if(response.redirected){
+                  sessionStorage.setItem('status','loggedIn');
+                  window.location.href = (response.url);
+              }
+
+          }
+      </script>
 </body>
 </html>

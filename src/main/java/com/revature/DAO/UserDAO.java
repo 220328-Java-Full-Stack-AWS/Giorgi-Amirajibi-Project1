@@ -14,7 +14,6 @@ public class UserDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject select(JSONObject jsonObject) {
-        JSONObject status = new JSONObject();
 
         try {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
@@ -25,10 +24,10 @@ public class UserDAO implements CRUDInterface<JSONObject> {
 
             if(resultSet.next()){
                 if (encoder.matches(jsonObject.getString("password"),resultSet.getString(resultSet.findColumn("ers_password")))){
-                    status.put("status","success");
+                    jsonObject.put("status","success");
                 }
                 else{
-                    status.put("status","failed");
+                    jsonObject.put("status","failed");
                 }
 
             }
@@ -39,7 +38,7 @@ public class UserDAO implements CRUDInterface<JSONObject> {
         }
 
 
-        return status;
+        return jsonObject;
     }
 
     @Override

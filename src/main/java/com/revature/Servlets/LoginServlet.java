@@ -16,23 +16,22 @@ public class LoginServlet extends HttpServlet {
         String username;
         String password;
 
-        username = req.getParameter("username");
-        password = req.getParameter("password");
+        JSONObject currentUser = new JSONObject(req.getHeader("json"));
 
-        JSONObject currentUserJson = new JSONObject();
-        currentUserJson.put("username",username);
-        currentUserJson.put("password", password);
+
+        username = currentUser.getString("username");
+        password = currentUser.getString("password");
+
 
         UserDAO userDAO = new UserDAO();
-        JSONObject response = userDAO.select(currentUserJson);
+        JSONObject response = userDAO.select(currentUser);
 
         if (response.getString("status").equals("success")){
             resp.setStatus(200);
-            resp.sendRedirect("userPage.html");
+            resp.sendRedirect("./UI/userPage.html");
         }
-        else{
-            resp.setStatus(404);
-            resp.getWriter().println("There was an error");
+        else {
+            //exception
         }
 
 
