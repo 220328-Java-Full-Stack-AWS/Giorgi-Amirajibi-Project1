@@ -40,8 +40,6 @@ public class RegistrationServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         JSONObject response = userDAO.insert(currentUserJson);
 
-        System.out.println(response);
-
         if (response.getString("status").equals("success")){
             resp.setStatus(200);
             resp.sendRedirect("./UI/login.html");

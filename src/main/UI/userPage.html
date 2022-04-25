@@ -13,6 +13,52 @@
     </script>
 </head>
 <body>
-    <p>Welcome user</p>
+    <input type="button" value="Create Reimbursement" onclick="reimb()">
+    <input type="button" value="View Reimbursement">
+    <input type="button" value="Edit Reimbursement">
+    <br>
+    <p id="createReimb"></p>
+
+    <script>
+        function reimb(){
+
+            document.getElementById("createReimb").innerHTML= "<label for='reimbType'>Reimbursement Type</label>\n" +
+                "\n" +
+                "<select name='reimbType' id='reimbType'>\n" +
+                "  <option value='LODGING'>Lodging</option>\n" +
+                "  <option value='FOOD'>Food</option>\n" +
+                "  <option value='TRAVEL'>Travel</option>\n" +
+                "</select><br>" +
+                "<input type='text' id='reimbAmount' placeholder='Reimbursement Amount'><br>" +
+                "<input type='text' id='reimbDescription' placeholder='Reimbursement Description'><br>" +
+                "<input type='submit' id='submit' type='submit' onclick='createReimb()'>";
+        }
+    </script>
+    <script>
+        async function createReimb(){
+            let data = new Object();
+            data.username = sessionStorage.getItem('username');
+            data.reimbType = document.getElementById("reimbType").value;
+            data.reimbAmount = document.getElementById("reimbAmount").value;
+            data.reimbDescription = document.getElementById("reimbDescription").value;
+            data.reimbSubmitted = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            let json = JSON.stringify(data);
+
+            let response = await fetch(
+                "../reimbursement",
+                {
+                    method : "POST",
+                    headers :
+                    {
+                        "Content-Type": "application/json",
+                    },
+                    body : json
+                }
+
+            );
+            console.log(response);
+
+        }
+    </script>
 </body>
 </html>

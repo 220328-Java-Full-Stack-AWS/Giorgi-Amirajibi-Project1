@@ -35,9 +35,11 @@
 
                   }
               );
+              //let username = response.headers.get('username');
 
               if(response.redirected){
                   sessionStorage.setItem('status','loggedIn');
+                  sessionStorage.setItem('username', document.getElementById('username').value);
                   window.location.href = (response.url);
               }
 
