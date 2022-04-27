@@ -51,6 +51,34 @@ public class ReimbursementDAO implements CRUDInterface<JSONObject> {
     @Override
     public JSONObject update(JSONObject jsonObject) {
 
+        int reimbTypeIdInt = 0;
+        switch (jsonObject.getString("reimbType")){
+            case "LODGING":
+                reimbTypeIdInt = 1;
+                break;
+            case "FOOD":
+                reimbTypeIdInt = 2;
+                break;
+            case "TRAVEL":
+                reimbTypeIdInt = 3;
+                break;
+        }
+
+        try {
+            String sql = "UPDATE ers_reimbursement SET (reimb_amount,reimb_submitted,reimb_description,reimb_type_id) = (?,?,?,?) WHERE reimb_id = ?";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,jsonObject.getInt("reimbAmount"));
+            preparedStatement.setTimestamp(2,Timestamp.valueOf(jsonObject.getString("reimbSubmitted")));
+            preparedStatement.setString(3,jsonObject.getString("reimbDescription"));
+            preparedStatement.setInt(4,reimbTypeIdInt);
+            preparedStatement.setInt(5,jsonObject.getInt("reimbId"));
+            preparedStatement.executeUpdate();
+            jsonObject.put("status", "success");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return jsonObject;
     }
 

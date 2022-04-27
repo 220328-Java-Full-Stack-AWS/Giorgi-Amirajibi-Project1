@@ -74,6 +74,8 @@ public class ReimbursementServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestData = req.getReader().lines().collect(Collectors.joining());
         JSONObject jsonObject = new JSONObject(requestData);
-        System.out.println(jsonObject);
+        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
+        reimbursementDAO.update(jsonObject);
+        resp.setHeader("status", "success");
     }
 }
