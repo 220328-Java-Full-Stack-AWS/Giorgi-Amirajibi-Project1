@@ -15,3 +15,29 @@ body{
     text-align: center;
     box-sizing: border-box;
 }
+tbody {
+    display: table;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+tr {
+    display: table;
+    width: 100%;
+    border: 1px solid black;
+}
+th{
+    width: 102px;
+}
+table td{
+    text-align: center;
+    width: 100px;
+    border: 1px solid black;
+}
+
+table {
+    font-size: small;
+    width: 200%;
+}
+
+

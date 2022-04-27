@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class Reimbursement {
 
+    private int reimbId;
     private int reimbAmount;
     private Timestamp reimbSubmitted;
     private Timestamp reimbResolved;
@@ -110,6 +111,14 @@ public class Reimbursement {
 
     public void setReimbTypeId(int reimbTypeId) {
         this.reimbTypeId = reimbTypeId;
+    }
+
+    public int getReimbId() {
+        return reimbId;
+    }
+
+    public void setReimbId(int reimbId) {
+        this.reimbId = reimbId;
     }
 
     @Override

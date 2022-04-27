@@ -3,6 +3,7 @@ package com.revature.Servlets;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.DAO.ReimbursementDAO;
 import com.revature.Models.Reimbursement;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @WebServlet("/reimbursement")
@@ -43,5 +45,16 @@ public class ReimbursementServlet extends HttpServlet {
         ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
         reimbursementDAO.insert(reimbursementJson);
 
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getHeader("username");
+        System.out.println(username);
+        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
+        List<JSONObject> list = reimbursementDAO.selectAll(username);
+        JSONArray jsonArray = new JSONArray(list.toArray());
+        //System.out.println(jsonArray);
+        resp.setHeader("json", jsonArray.toString());
     }
 }
