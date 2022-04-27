@@ -13,7 +13,7 @@ async function viewReimb(){
 
     let username = sessionStorage.getItem("username");
     let response = await fetch(
-        "../reimbursement",
+        "../reimbursementAdmin",
         {
             method: "GET",
             headers:
@@ -44,50 +44,6 @@ async function viewReimb(){
 
 }
 
-
-async function viewReimb(){
-    document.getElementById("reimbursement").innerHTML =
-        "<table>" +
-        "<tr>" +
-        "    <th>Description</th>" +
-        "    <th>Amount</th>" +
-        "    <th>Type</th>" +
-        "    <th>Status</th>" +
-        "    <th>Submitted</th>" +
-        "</tr>" +
-        "    <tbody id='content'></tbody>"
-    "</table>";
-
-    let username = sessionStorage.getItem("username");
-    let response = await fetch(
-        "../reimbursement",
-        {
-            method: "GET",
-            headers:
-                {
-                    "Content-Type" : "application/json",
-                    "username" : username
-                }
-        }
-    );
-
-    let json = JSON.parse(response.headers.get("json"));
-    for (let i = 0; i < json.length; i++) {
-        let tableRow =
-            '<tr id="' + "trView" + json[i].reimbId + '">' +
-            "<td>" + json[i].reimbDescription + "</td>" +
-            "<td>" + json[i].reimbAmount + "$" + "</td>" + "<td>" + json[i].reimbType + "</td>" +
-            "<td>" + json[i].reimbStatus + "</td>" + "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
-            "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='delete' value='Delete' onclick='reimbDelete(this.id)'>" + "</td>" +
-            "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='edit' value='Edit' onclick='reimbEdit(this.id)'> " + "</td>" +
-            "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='approve' value='Approve' onclick='reimbApproved(this.id)'>" + "</td>" +
-            "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='deny' value='Deny' onclick='reimbDenied(this.id)'> " + "</td>" +
-            "</tr>";
-        document.getElementById("content").innerHTML += tableRow;
-    }
-
-
-}
 
 async function reimbEdit(reimbId){
     console.log(reimbId);
@@ -147,7 +103,7 @@ async function submitEdit(reimbId){
     let jsonObject = JSON.stringify(data);
 
     let response = await fetch(
-        "../reimbursement",
+        "../reimbursementAdmin",
         {
             method: "PUT",
             headers:
@@ -166,7 +122,7 @@ async function submitEdit(reimbId){
 async function reimbDelete(reimbId){
 
     let response = await fetch(
-        "../reimbursement",
+        "../reimbursementAdmin",
         {
             method: "DELETE",
             headers:
@@ -204,7 +160,7 @@ async function createReimb(){
     let json = JSON.stringify(data);
 
     let response = await fetch(
-        "../reimbursement",
+        "../reimbursementAdmin",
         {
             method : "POST",
             headers :

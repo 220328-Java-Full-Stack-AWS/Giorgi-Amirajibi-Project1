@@ -105,51 +105,52 @@ public class ReimbursementAdminDAO implements CRUDInterface<JSONObject> {
     public List<JSONObject> selectAll(String username) {
         List<JSONObject> reimbursementListJson = new ArrayList<>();
         try {
-            String selectUserIdSQL = "SELECT ers_user_id FROM ers_users WHERE ers_username = ?";
+            String selectUserIdSQL = "SELECT ers_user_id FROM ers_users WHERE ers_username != ?";
             PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(selectUserIdSQL);
             ps.setString(1,username);
             ResultSet rs = ps.executeQuery();
-            rs.next();
+            while(rs.next()) {
             int userId = rs.getInt(rs.findColumn("ers_user_id"));
             String sql = "SELECT * FROM ers_reimbursement WHERE reimb_author = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                Reimbursement reimbursement = new Reimbursement();
-                reimbursement.setReimbId(resultSet.getInt(resultSet.findColumn("reimb_id")));
-                reimbursement.setReimbAmount(resultSet.getInt(resultSet.findColumn("reimb_amount")));
-                reimbursement.setReimbAuthor(resultSet.getInt(resultSet.findColumn("reimb_author")));
-                reimbursement.setReimbDescription(resultSet.getString(resultSet.findColumn("reimb_description")));
-                reimbursement.setReimbSubmitted(resultSet.getTimestamp(resultSet.findColumn("reimb_submitted")));
-                reimbursement.setReimbStatusId(resultSet.getInt(resultSet.findColumn("reimb_status_id")));
-                reimbursement.setReimbTypeId(resultSet.getInt(resultSet.findColumn("reimb_type_id")));
+                    Reimbursement reimbursement = new Reimbursement();
+                    reimbursement.setReimbId(resultSet.getInt(resultSet.findColumn("reimb_id")));
+                    reimbursement.setReimbAmount(resultSet.getInt(resultSet.findColumn("reimb_amount")));
+                    reimbursement.setReimbAuthor(resultSet.getInt(resultSet.findColumn("reimb_author")));
+                    reimbursement.setReimbDescription(resultSet.getString(resultSet.findColumn("reimb_description")));
+                    reimbursement.setReimbSubmitted(resultSet.getTimestamp(resultSet.findColumn("reimb_submitted")));
+                    reimbursement.setReimbStatusId(resultSet.getInt(resultSet.findColumn("reimb_status_id")));
+                    reimbursement.setReimbTypeId(resultSet.getInt(resultSet.findColumn("reimb_type_id")));
 
-                JSONObject reimbursementJson = new JSONObject(reimbursement);
+                    JSONObject reimbursementJson = new JSONObject(reimbursement);
 
-                switch (reimbursementJson.getInt("reimbStatusId")){
-                    case 1: reimbursementJson.remove("reimbStatusId");
-                        reimbursementJson.put("reimbStatus", "PENDING");
-                        break;
-                    case 2: reimbursementJson.remove("reimbStatusId");
-                        reimbursementJson.put("reimbStatus", "DENIED");
-                        break;
-                    case 3: reimbursementJson.remove("reimbStatusId");
-                        reimbursementJson.put("reimbStatus", "APPROVED");
-                        break;
+                    switch (reimbursementJson.getInt("reimbStatusId")){
+                        case 1: reimbursementJson.remove("reimbStatusId");
+                            reimbursementJson.put("reimbStatus", "PENDING");
+                            break;
+                        case 2: reimbursementJson.remove("reimbStatusId");
+                            reimbursementJson.put("reimbStatus", "DENIED");
+                            break;
+                        case 3: reimbursementJson.remove("reimbStatusId");
+                            reimbursementJson.put("reimbStatus", "APPROVED");
+                            break;
+                    }
+                    switch (reimbursementJson.getInt("reimbTypeId")){
+                        case 1: reimbursementJson.remove("reimbTypeId");
+                            reimbursementJson.put("reimbType", "LODGING");
+                            break;
+                        case 2: reimbursementJson.remove("reimbTypeId");
+                            reimbursementJson.put("reimbType", "FOOD");
+                            break;
+                        case 3: reimbursementJson.remove("reimbTypeId");
+                            reimbursementJson.put("reimbType", "TRAVEL");
+                            break;
+                    }
+                    reimbursementListJson.add(reimbursementJson);
                 }
-                switch (reimbursementJson.getInt("reimbTypeId")){
-                    case 1: reimbursementJson.remove("reimbTypeId");
-                        reimbursementJson.put("reimbType", "LODGING");
-                        break;
-                    case 2: reimbursementJson.remove("reimbTypeId");
-                        reimbursementJson.put("reimbType", "FOOD");
-                        break;
-                    case 3: reimbursementJson.remove("reimbTypeId");
-                        reimbursementJson.put("reimbType", "TRAVEL");
-                        break;
-                }
-                reimbursementListJson.add(reimbursementJson);
             }
             return reimbursementListJson;
         }

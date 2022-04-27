@@ -1,4 +1,5 @@
 package com.revature.Servlets;
+import com.revature.DAO.ReimbursementAdminDAO;
 import com.revature.DAO.ReimbursementDAO;
 import com.revature.Models.Reimbursement;
 import org.json.JSONArray;
@@ -16,6 +17,15 @@ import java.util.stream.Collectors;
 
 @WebServlet("/reimbursementAdmin")
 public class ReimbursementServletAdmin extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getHeader("username");
+        ReimbursementAdminDAO reimbursementAdminDAO = new ReimbursementAdminDAO();
+        List<JSONObject> list = reimbursementAdminDAO.selectAll(username);
+        JSONArray jsonArray = new JSONArray(list.toArray());
+        resp.setHeader("json", jsonArray.toString());
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,31 +56,22 @@ public class ReimbursementServletAdmin extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getHeader("username");
-        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
-        List<JSONObject> list = reimbursementDAO.selectAll(username);
-        JSONArray jsonArray = new JSONArray(list.toArray());
-        resp.setHeader("json", jsonArray.toString());
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        JSONObject jsonObject = new JSONObject(requestData);
+        ReimbursementAdminDAO reimbursementAdminDAO = new ReimbursementAdminDAO();
+        reimbursementAdminDAO.update(jsonObject);
+        resp.setHeader("status", "success");
     }
-
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("reimbId",req.getHeader("json"));
         System.out.println(jsonObject);
-        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
-        reimbursementDAO.delete(jsonObject);
+        ReimbursementAdminDAO reimbursementAdminDAO = new ReimbursementAdminDAO();
+        reimbursementAdminDAO.delete(jsonObject);
         resp.setHeader("status","success");
 
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestData = req.getReader().lines().collect(Collectors.joining());
-        JSONObject jsonObject = new JSONObject(requestData);
-        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
-        reimbursementDAO.update(jsonObject);
-        resp.setHeader("status", "success");
-    }
 }
