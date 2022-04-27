@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             else if (response.getInt("user_role") == 2){
                 resp.setStatus(200);
                 resp.setHeader("username",response.getString("username"));
-                resp.sendRedirect("./UI/Admin.html");
+                resp.sendRedirect("./UI/admin.html");
             }
 
         }
