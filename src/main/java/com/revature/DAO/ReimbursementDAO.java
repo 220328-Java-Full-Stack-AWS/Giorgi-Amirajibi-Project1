@@ -3,15 +3,11 @@ package com.revature.DAO;
 import com.revature.Connectivity.ConnectionManager;
 import com.revature.Interfaces.CRUDInterface;
 import com.revature.Models.Reimbursement;
-import com.revature.ReimbStatus;
-import com.revature.ReimbType;
 import org.json.JSONObject;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ReimbursementDAO implements CRUDInterface<JSONObject> {
     @Override
@@ -60,7 +56,15 @@ public class ReimbursementDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject delete(JSONObject jsonObject) {
-        String deleteSQL = "";
+        try {
+            String sql = "DELETE FROM ers_reimbursement WHERE reimb_id = ?";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,Integer.parseInt(jsonObject.getString("reimbId")));
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return jsonObject;
     }
 

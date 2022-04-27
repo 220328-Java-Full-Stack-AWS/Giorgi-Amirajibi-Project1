@@ -1,6 +1,7 @@
 package com.revature.Servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.Connectivity.ConnectionManager;
 import com.revature.DAO.ReimbursementDAO;
 import com.revature.Models.Reimbursement;
 import org.json.JSONArray;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,11 +53,20 @@ public class ReimbursementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getHeader("username");
-        System.out.println(username);
         ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
         List<JSONObject> list = reimbursementDAO.selectAll(username);
         JSONArray jsonArray = new JSONArray(list.toArray());
-        //System.out.println(jsonArray);
         resp.setHeader("json", jsonArray.toString());
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("reimbId",req.getHeader("json"));
+        System.out.println(jsonObject);
+        ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
+        reimbursementDAO.delete(jsonObject);
+        resp.setHeader("status","success");
+
     }
 }

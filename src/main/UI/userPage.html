@@ -24,11 +24,11 @@
             document.getElementById("reimbursement").innerHTML =
                 "<table>" +
                 "<tr>" +
-                "    <th id='descr'>Description</th>" +
-                "    <th id='amount'>Amount</th>" +
-                "    <th id='type'>Type</th>" +
-                "    <th id='status'>Status</th>" +
-                "    <th id='submitted'>Submitted</th>" +
+                "    <th>Description</th>" +
+                "    <th>Amount</th>" +
+                "    <th>Type</th>" +
+                "    <th>Status</th>" +
+                "    <th>Submitted</th>" +
                 "</tr>" +
                 "    <tbody id='content'></tbody>"
                 "</table>";
@@ -45,19 +45,38 @@
                         }
                 }
             );
-            //console.log(response.headers.get("json"))
-
 
             let json = JSON.parse(response.headers.get("json"));
             for (let i = 0; i < json.length; i++) {
-                let tableRow = "<tr>" + "<td>" + json[i].reimbDescription + "</td>" +
-                    "<td>" + json[i].reimbAmount + "</td>" + "<td>" + json[i].reimbType + "</td>" + "<td>" + json[i].reimbStatus + "</td>" + "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" + "</tr>"
+                let tableRow = '<tr id="' + json[i].reimbId + '">' + "<td>" + json[i].reimbDescription + "</td>" +
+                    "<td>" + json[i].reimbAmount + "$" + "</td>" + "<td>" + json[i].reimbType + "</td>" +
+                    "<td>" + json[i].reimbStatus + "</td>" + "<td>" + json[i].reimbSubmitted.slice(0,19) +
+                    "</td>" + "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='delete' value='Delete' onclick='reimbDelete(this.id)'>" + "</td>" + "</tr>";
                 document.getElementById("content").innerHTML += tableRow;
             }
 
 
         }
 
+    </script>
+    <script>
+        async function reimbDelete(i){
+
+            let response = await fetch(
+                "../reimbursement",
+                {
+                    method: "DELETE",
+                    headers:
+                        {
+                            "Content-Type": "application/json",
+                            "json" : i
+                        }
+                }
+            );
+            if (response.headers.get("status") == "success"){
+                viewReimb();
+            }
+        }
     </script>
 
     <script>
@@ -98,6 +117,7 @@
 
             );
             console.log(response);
+            location.reload();
 
         }
     </script>
