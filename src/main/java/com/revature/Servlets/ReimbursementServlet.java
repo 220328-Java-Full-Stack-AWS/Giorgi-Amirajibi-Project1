@@ -69,4 +69,11 @@ public class ReimbursementServlet extends HttpServlet {
         resp.setHeader("status","success");
 
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String requestData = req.getReader().lines().collect(Collectors.joining());
+        JSONObject jsonObject = new JSONObject(requestData);
+        System.out.println(jsonObject);
+    }
 }
