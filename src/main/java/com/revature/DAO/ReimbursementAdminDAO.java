@@ -105,12 +105,13 @@ public class ReimbursementAdminDAO implements CRUDInterface<JSONObject> {
     public List<JSONObject> selectAll(String username) {
         List<JSONObject> reimbursementListJson = new ArrayList<>();
         try {
-            String selectUserIdSQL = "SELECT ers_user_id FROM ers_users WHERE ers_username != ?";
+            String selectUserIdSQL = "SELECT ers_user_id, ers_username FROM ers_users";
             PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(selectUserIdSQL);
-            ps.setString(1,username);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
             int userId = rs.getInt(rs.findColumn("ers_user_id"));
+            String dbUsername = rs.getString(rs.findColumn("ers_username"));
+
             String sql = "SELECT * FROM ers_reimbursement WHERE reimb_author = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1,userId);
@@ -126,6 +127,7 @@ public class ReimbursementAdminDAO implements CRUDInterface<JSONObject> {
                     reimbursement.setReimbTypeId(resultSet.getInt(resultSet.findColumn("reimb_type_id")));
 
                     JSONObject reimbursementJson = new JSONObject(reimbursement);
+                    reimbursementJson.put("reimbAuthorUserName", dbUsername);
 
                     switch (reimbursementJson.getInt("reimbStatusId")){
                         case 1: reimbursementJson.remove("reimbStatusId");
