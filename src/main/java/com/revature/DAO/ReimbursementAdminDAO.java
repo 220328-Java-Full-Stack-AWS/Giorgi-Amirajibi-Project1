@@ -50,27 +50,28 @@ public class ReimbursementAdminDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject update(JSONObject jsonObject) {
-
-        int reimbTypeIdInt = 0;
-        switch (jsonObject.getString("reimbType")){
-            case "LODGING":
-                reimbTypeIdInt = 1;
-                break;
-            case "FOOD":
-                reimbTypeIdInt = 2;
-                break;
-            case "TRAVEL":
-                reimbTypeIdInt = 3;
-                break;
-        }
+        System.out.println("we are in dao update method");
+        int reimbStatusId = jsonObject.getInt("reimbStatusId");
+        System.out.println("ReimbStatusId " + reimbStatusId);
 
         try {
-            String sql = "UPDATE ers_reimbursement SET (reimb_amount,reimb_submitted,reimb_description,reimb_type_id) = (?,?,?,?) WHERE reimb_id = ?";
+            String reimbResolverUserName = jsonObject.getString("reimbResolver");
+            System.out.println("reimbResolver " + reimbResolverUserName);
+            String getReimbResolverId = "SELECT ers_user_id FROM ers_users WHERE ers_username = ?";
+            int reimbResolverId = 0;
+            PreparedStatement preparedStatementForResolver = ConnectionManager.getConnection().prepareStatement(getReimbResolverId);
+            preparedStatementForResolver.setString(1,reimbResolverUserName);
+            ResultSet rs = preparedStatementForResolver.executeQuery();
+            if (rs.next()){
+                reimbResolverId = rs.getInt(rs.findColumn("ers_user_id"));
+            }
+
+            String sql = "UPDATE ers_reimbursement SET (reimb_resolved,reimb_receipt,reimb_resolver,reimb_status_id) = (?,?,?,?) WHERE reimb_id = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1,jsonObject.getInt("reimbAmount"));
-            preparedStatement.setTimestamp(2,Timestamp.valueOf(jsonObject.getString("reimbSubmitted")));
-            preparedStatement.setString(3,jsonObject.getString("reimbDescription"));
-            preparedStatement.setInt(4,reimbTypeIdInt);
+            preparedStatement.setTimestamp(1,Timestamp.valueOf(jsonObject.getString("reimbResolved")));
+            preparedStatement.setString(2, "Such a nice receipt");
+            preparedStatement.setInt(3,reimbResolverId);
+            preparedStatement.setInt(4,reimbStatusId);
             preparedStatement.setInt(5,jsonObject.getInt("reimbId"));
             preparedStatement.executeUpdate();
             jsonObject.put("status", "success");

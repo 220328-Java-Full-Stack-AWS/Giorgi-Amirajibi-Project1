@@ -13,16 +13,8 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username;
-        String password;
 
         JSONObject currentUser = new JSONObject(req.getHeader("json"));
-
-
-        username = currentUser.getString("username");
-        password = currentUser.getString("password");
-
-
         UserDAO userDAO = new UserDAO();
         JSONObject response = userDAO.select(currentUser);
 
@@ -35,8 +27,14 @@ public class LoginServlet extends HttpServlet {
             else if (response.getInt("user_role") == 2){
                 resp.setStatus(200);
                 resp.setHeader("username",response.getString("username"));
+                resp.sendRedirect("./UI/userPage.html");
+            }
+            else if (response.getInt("user_role") == 3){
+                resp.setStatus(200);
+                resp.setHeader("username",response.getString("username"));
                 resp.sendRedirect("./UI/admin.html");
             }
+
 
         }
         else {

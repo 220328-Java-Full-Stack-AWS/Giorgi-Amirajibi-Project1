@@ -1,5 +1,5 @@
 async function viewReimb(){
-    document.getElementById("reimbursement").innerHTML =
+    document.getElementById("MainContent").innerHTML =
         "<table>" +
         "<tr>" +
         "    <th>Description</th>" +
@@ -44,7 +44,7 @@ async function viewReimb(){
 
 
 async function viewReimb(){
-    document.getElementById("reimbursement").innerHTML =
+    document.getElementById("MainContent").innerHTML =
         "<table>" +
         "<tr>" +
         "    <th>Description</th>" +
@@ -74,8 +74,10 @@ async function viewReimb(){
         let tableRow =
             '<tr id="' + "trView" + json[i].reimbId + '">' +
             "<td>" + json[i].reimbDescription + "</td>" +
-            "<td>" + json[i].reimbAmount + "$" + "</td>" + "<td>" + json[i].reimbType + "</td>" +
-            "<td>" + json[i].reimbStatus + "</td>" + "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
+            "<td>" + json[i].reimbAmount + "$" + "</td>" +
+            "<td>" + json[i].reimbType + "</td>" +
+            "<td>" + json[i].reimbStatus + "</td>" +
+            "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
             "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='delete' value='Delete' onclick='reimbDelete(this.id)'>" + "</td>" +
             "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='edit' value='Edit' onclick='reimbEdit(this.id)'> " + "</td>" +
             "</tr>";
@@ -94,7 +96,7 @@ async function reimbEdit(reimbId){
     message = message.split("\t");
 
 
-    document.getElementById("reimbursement").innerHTML =
+    document.getElementById("MainContent").innerHTML =
         "<table>" +
         "<tr>" +
         "    <th>Description</th>" +
@@ -179,7 +181,8 @@ async function reimbDelete(reimbId){
 
 function reimb(){
 
-    document.getElementById("reimbursement").innerHTML= "<label for='reimbType'>Reimbursement Type</label>" +
+    document.getElementById("MainContent").innerHTML=
+        "<label for='reimbType'>Reimbursement Type</label>" +
         "<select name='reimbType' id='reimbType'>\n" +
         "  <option value='LODGING'>Lodging</option>\n" +
         "  <option value='FOOD'>Food</option>\n" +
@@ -214,4 +217,8 @@ async function createReimb(){
     console.log(response);
     location.reload();
 
+}
+function logout(){
+    sessionStorage.clear();
+    window.location.reload();
 }
