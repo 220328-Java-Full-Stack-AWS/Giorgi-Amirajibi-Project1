@@ -102,7 +102,14 @@ async function viewReimb(){
         "    <th>Description</th>" +
         "    <th>Amount</th>" +
         "    <th>Type</th>" +
-        "    <th>Status</th>" +
+        "    <th>" +
+        "       <select id='statusSelect' class='statusSelection' onchange='filterTable(this.id)'>" +
+        "           <option value ='STATUS'>STATUS</option>"+
+        "           <option value='PENDING'>PENDING</option>" +
+        "           <option value='DENIED' >DENIED</option>" +
+        "<          <option value='APPROVED' >APPROVED</option>" +
+        "       </select>" +
+        "    </th>" +
         "    <th>Submitted</th>" +
         "</tr>" +
         "    <tbody id='content'></tbody>"
@@ -138,8 +145,78 @@ async function viewReimb(){
 
     }
 
+}
+async function filterTable(statusSelection){
+    let data = document.getElementById(statusSelection).value;
+    //console.log(data);
+
+    document.getElementById("MainContent").innerHTML =
+        "<table>" +
+        "<tr>" +
+        "    <th>Author</th>" +
+        "    <th>Description</th>" +
+        "    <th>Amount</th>" +
+        "    <th>Type</th>" +
+        "    <th>" +
+        "       <select id='statusSelect' class='statusSelection' onchange='filterTable(this.id)'>" +
+        "           <option value='STATUS'>STATUS</option>"+
+        "           <option value='PENDING'>PENDING</option>" +
+        "           <option value='DENIED' >DENIED</option>" +
+        "<          <option value='APPROVED' >APPROVED</option>" +
+        "       </select>" +
+        "    </th>" +
+        "    <th>Submitted</th>" +
+        "</tr>" +
+        "    <tbody id='content'></tbody>"
+    "</table>";
+
+    let username = sessionStorage.getItem("username");
+    let response = await fetch(
+        "../reimbursementAdmin",
+        {
+            method: "GET",
+            headers:
+                {
+                    "Content-Type" : "application/json",
+                    "username" : username
+                }
+        }
+    );
+
+    let json = JSON.parse(response.headers.get("json"));
+    for (let i = 0; i < json.length; i++) {
+        if (data === json[i].reimbStatus){
+            let tableRow =
+                '<tr id="' + json[i].reimbId + '">' +
+                "<td>" + json[i].reimbAuthorUserName + "</td>" +
+                "<td>" + json[i].reimbDescription + "</td>" +
+                "<td>" + json[i].reimbAmount + "$" + "</td>" +
+                "<td>" + json[i].reimbType + "</td>" +
+                "<td>" + json[i].reimbStatus + "</td>" +
+                "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
+                "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='approved' value='Approve' onclick='reimbApproved(this.id)'>" + "</td>" +
+                "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='denied' value='Deny' onclick='reimbDenied(this.id)'> " + "</td>" +
+                "</tr>";
+            document.getElementById("content").innerHTML += tableRow;
+        } else if (data === "STATUS"){
+            let tableRow =
+                '<tr id="' + json[i].reimbId + '">' +
+                "<td>" + json[i].reimbAuthorUserName + "</td>" +
+                "<td>" + json[i].reimbDescription + "</td>" +
+                "<td>" + json[i].reimbAmount + "$" + "</td>" +
+                "<td>" + json[i].reimbType + "</td>" +
+                "<td>" + json[i].reimbStatus + "</td>" +
+                "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
+                "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='approved' value='Approve' onclick='reimbApproved(this.id)'>" + "</td>" +
+                "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='denied' value='Deny' onclick='reimbDenied(this.id)'> " + "</td>" +
+                "</tr>";
+            document.getElementById("content").innerHTML += tableRow;
+        }
+
+    }
 
 }
+
 async function reimbApproved(reimbId){
     console.log(reimbId);
     let jsonObject = new Object();

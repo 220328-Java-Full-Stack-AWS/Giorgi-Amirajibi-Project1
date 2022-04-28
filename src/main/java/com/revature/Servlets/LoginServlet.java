@@ -23,12 +23,12 @@ public class LoginServlet extends HttpServlet {
             if (response.getInt("user_role") == 1){
                 resp.setStatus(200);
                 resp.setHeader("username",response.getString("username"));
-                resp.sendRedirect("./UI/userPage.html");
+                resp.sendRedirect("./UI/user.html");
             }
             else if (response.getInt("user_role") == 2){
                 resp.setStatus(200);
                 resp.setHeader("username",response.getString("username"));
-                resp.sendRedirect("./UI/userPage.html");
+                resp.sendRedirect("./UI/user.html");
             }
             else if (response.getInt("user_role") == 3){
                 resp.setStatus(200);
