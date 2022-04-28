@@ -130,18 +130,33 @@ async function viewReimb(){
 
     let json = JSON.parse(response.headers.get("json"));
     for (let i = 0; i < json.length; i++) {
-        let tableRow =
-            '<tr id="' + json[i].reimbId + '">' +
-            "<td>" + json[i].reimbAuthorUserName + "</td>" +
-            "<td>" + json[i].reimbDescription + "</td>" +
-            "<td>" + "$" + json[i].reimbAmount + "</td>" +
-            "<td>" + json[i].reimbType + "</td>" +
-            "<td>" + json[i].reimbStatus + "</td>" +
-            "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
-            "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='approved' value='Approve' onclick='reimbApproved(this.id)'>" + "</td>" +
-            "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='denied' value='Deny' onclick='reimbDenied(this.id)'> " + "</td>" +
-            "</tr>";
-        document.getElementById("content").innerHTML += tableRow;
+        if (json[i].reimbStatus != "PENDING"){
+            let tableRow =
+                '<tr id="' + json[i].reimbId + '">' +
+                "<td>" + json[i].reimbAuthorUserName + "</td>" +
+                "<td>" + json[i].reimbDescription + "</td>" +
+                "<td>" + "$" + json[i].reimbAmount + "</td>" +
+                "<td>" + json[i].reimbType + "</td>" +
+                "<td>" + json[i].reimbStatus + "</td>" +
+                "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
+                "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='approved' value='Approve' onclick='reimbApproved(this.id)'>" + "</td>" +
+                "<td>" + "<input type='button' id='" + json[i].reimbId + "' name='denied' value='Deny' onclick='reimbDenied(this.id)'> " + "</td>" +
+                "</tr>";
+            document.getElementById("content").innerHTML += tableRow;
+
+        }
+        else {
+            let tableRow =
+                '<tr id="' + json[i].reimbId + '">' +
+                "<td>" + json[i].reimbAuthorUserName + "</td>" +
+                "<td>" + json[i].reimbDescription + "</td>" +
+                "<td>" + "$" + json[i].reimbAmount + "</td>" +
+                "<td>" + json[i].reimbType + "</td>" +
+                "<td>" + json[i].reimbStatus + "</td>" +
+                "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>"
+                "</tr>";
+            document.getElementById("content").innerHTML += tableRow;
+        }
 
     }
 
