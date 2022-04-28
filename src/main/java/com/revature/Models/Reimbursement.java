@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Reimbursement {
 
     private int reimbId;
-    private int reimbAmount;
+    private double reimbAmount;
     private Timestamp reimbSubmitted;
     private Timestamp reimbResolved;
     private String reimbDescription;
@@ -28,7 +28,7 @@ public class Reimbursement {
         this.reimbTypeId = 0;
     }
 
-    public Reimbursement(int reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved, String reimbDescription,
+    public Reimbursement(double reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved, String reimbDescription,
                          String reimbReceipt, int reimbAuthor, int reimbResolver, int reimbStatusId, int reimbTypeId) {
         this.reimbAmount = reimbAmount;
         this.reimbSubmitted = reimbSubmitted;
@@ -41,11 +41,11 @@ public class Reimbursement {
         this.reimbTypeId = reimbTypeId;
     }
 
-    public int getReimbAmount() {
+    public double getReimbAmount() {
         return reimbAmount;
     }
 
-    public void setReimbAmount(int reimbAmount) {
+    public void setReimbAmount(double reimbAmount) {
         this.reimbAmount = reimbAmount;
     }
 

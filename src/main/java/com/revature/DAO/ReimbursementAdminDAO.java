@@ -118,7 +118,7 @@ public class ReimbursementAdminDAO implements CRUDInterface<JSONObject> {
             while (resultSet.next()){
                     Reimbursement reimbursement = new Reimbursement();
                     reimbursement.setReimbId(resultSet.getInt(resultSet.findColumn("reimb_id")));
-                    reimbursement.setReimbAmount(resultSet.getInt(resultSet.findColumn("reimb_amount")));
+                    reimbursement.setReimbAmount(resultSet.getDouble(resultSet.findColumn("reimb_amount")));
                     reimbursement.setReimbAuthor(resultSet.getInt(resultSet.findColumn("reimb_author")));
                     reimbursement.setReimbDescription(resultSet.getString(resultSet.findColumn("reimb_description")));
                     reimbursement.setReimbSubmitted(resultSet.getTimestamp(resultSet.findColumn("reimb_submitted")));

@@ -31,9 +31,9 @@ public class ReimbursementDAO implements CRUDInterface<JSONObject> {
             userRoleId = resultSet.getInt(resultSet.findColumn("user_role_id"));
 
             String reimbSQL = "INSERT INTO ers_reimbursement (reimb_amount,reimb_submitted,reimb_description,reimb_author,reimb_status_id,reimb_type_id)" +
-                              "VALUES(?,?,?,?,?,?)";
+                              "VALUES (?,?,?,?,?,?)";
             PreparedStatement preparedStatement1 = ConnectionManager.getConnection().prepareStatement(reimbSQL);
-            preparedStatement1.setInt(1,jsonObject.getInt("reimbAmount"));
+            preparedStatement1.setDouble(1,jsonObject.getDouble("reimbAmount"));
             preparedStatement1.setTimestamp(2, Timestamp.valueOf(jsonObject.getString("reimbSubmitted")));
             preparedStatement1.setString(3,jsonObject.getString("reimbDescription"));
             preparedStatement1.setInt(4,userId);
@@ -67,7 +67,7 @@ public class ReimbursementDAO implements CRUDInterface<JSONObject> {
         try {
             String sql = "UPDATE ers_reimbursement SET (reimb_amount,reimb_submitted,reimb_description,reimb_type_id) = (?,?,?,?) WHERE reimb_id = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1,jsonObject.getInt("reimbAmount"));
+            preparedStatement.setDouble(1,jsonObject.getDouble("reimbAmount"));
             preparedStatement.setTimestamp(2,Timestamp.valueOf(jsonObject.getString("reimbSubmitted")));
             preparedStatement.setString(3,jsonObject.getString("reimbDescription"));
             preparedStatement.setInt(4,reimbTypeIdInt);
@@ -123,7 +123,7 @@ public class ReimbursementDAO implements CRUDInterface<JSONObject> {
             while (resultSet.next()){
                 Reimbursement reimbursement = new Reimbursement();
                 reimbursement.setReimbId(resultSet.getInt(resultSet.findColumn("reimb_id")));
-                reimbursement.setReimbAmount(resultSet.getInt(resultSet.findColumn("reimb_amount")));
+                reimbursement.setReimbAmount(resultSet.getDouble(resultSet.findColumn("reimb_amount")));
                 reimbursement.setReimbAuthor(resultSet.getInt(resultSet.findColumn("reimb_author")));
                 reimbursement.setReimbDescription(resultSet.getString(resultSet.findColumn("reimb_description")));
                 reimbursement.setReimbSubmitted(resultSet.getTimestamp(resultSet.findColumn("reimb_submitted")));

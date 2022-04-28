@@ -166,14 +166,12 @@ async function reimbApproved(reimbId){
 
 }
 async function reimbDenied(reimbId){
-    console.log(reimbId);
     let jsonObject = new Object();
     jsonObject.reimbId = reimbId;
     jsonObject.reimbResolver = sessionStorage.getItem("username");
     jsonObject.reimbResolved = new Date().toISOString().slice(0,19).replace('T', ' ');
     jsonObject.reimbStatusId = 2;
     let data = JSON.stringify(jsonObject);
-    console.log(jsonObject)
 
     let response = await fetch(
         "../reimbursementAdmin",

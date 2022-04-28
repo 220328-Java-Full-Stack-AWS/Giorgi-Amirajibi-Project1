@@ -43,7 +43,7 @@ public class ReimbursementServletAdmin extends HttpServlet {
                 break;
         }
 
-        reimbursement.setReimbAmount(jsonObject.getInt("reimbAmount"));
+        reimbursement.setReimbAmount(jsonObject.getDouble("reimbAmount"));
         reimbursement.setReimbDescription(jsonObject.getString("reimbDescription"));
         reimbursement.setReimbSubmitted(Timestamp.valueOf(jsonObject.getString("reimbSubmitted")));
 

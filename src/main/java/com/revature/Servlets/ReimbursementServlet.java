@@ -24,7 +24,6 @@ public class ReimbursementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String requestData = req.getReader().lines().collect(Collectors.joining());
         JSONObject jsonObject = new JSONObject(requestData);
         Reimbursement reimbursement = new Reimbursement();
@@ -37,8 +36,7 @@ public class ReimbursementServlet extends HttpServlet {
             case "TRAVEL": reimbursement.setReimbTypeId(3);
                            break;
         }
-
-        reimbursement.setReimbAmount(jsonObject.getInt("reimbAmount"));
+        reimbursement.setReimbAmount(jsonObject.getDouble("reimbAmount"));
         reimbursement.setReimbDescription(jsonObject.getString("reimbDescription"));
         reimbursement.setReimbSubmitted(Timestamp.valueOf(jsonObject.getString("reimbSubmitted")));
 
