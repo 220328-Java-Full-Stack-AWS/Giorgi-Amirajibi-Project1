@@ -1,11 +1,9 @@
 package com.revature.DAO;
-
 import com.revature.Interfaces.CRUDInterface;
 import com.revature.Connectivity.ConnectionManager;
 import com.revature.Models.User;
 import org.json.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.security.SecureRandom;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +17,7 @@ public class UserDAO implements CRUDInterface<JSONObject> {
     public JSONObject select(JSONObject jsonObject) {
 
         try {
+
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10,new SecureRandom());
             String sql = "SELECT ers_username, ers_password, user_role_id FROM ers_users WHERE ers_username = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
@@ -32,8 +31,13 @@ public class UserDAO implements CRUDInterface<JSONObject> {
                 }
                 else{
                     jsonObject.put("status","failed");
+                    jsonObject.put("reason","Incorrect password.");
                 }
 
+            }
+            else {
+                jsonObject.put("status","failed");
+                jsonObject.put("reason","Username doesn't exist in the database.");
             }
 
         }

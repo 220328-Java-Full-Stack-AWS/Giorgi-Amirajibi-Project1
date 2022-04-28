@@ -11,8 +11,8 @@ async function submitForm(){
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-        "json" : json
-        },
+            "json" : json
+            },
         }
     );
     if (response.redirected){

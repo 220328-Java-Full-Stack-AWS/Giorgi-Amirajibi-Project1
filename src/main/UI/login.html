@@ -6,43 +6,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+      <script src="login.js"></script>
       <div class="container">
             <h2>Login</h2>
             <p>Enter username and password</p>
             <div>
-                <p><input type="text" id="username" name="username" placeholder="Username" required="required"></p>
-                <p><input type="password" id="password" name="password" placeholder="Password" required="required"></p>
-                <p><input type="submit" id="submit" name="Submit" onclick="submitForm()"></p>
+                <form action="javascript:submitForm()">
+                    <p><input type="text" id="username" name="username" placeholder="Username" required="required"></p>
+                    <p><input type="password" id="password" name="password" placeholder="Password" required="required"></p>
+                    <p><input type="submit" id="submit" name="Submit" value="Submit"></p>
+                </form>
             </div>
       </div>
-
-      <script>
-
-          async function submitForm(){
-              let object = new Object();
-              object.username = document.getElementById("username").value;
-              object.password = document.getElementById("password").value;
-              let json = JSON.stringify(object);
-              let response = await fetch(
-                  "../login",
-                  {
-                      method: "GET",
-                      headers:
-                          {
-                              "Content-Type": "application/json",
-                              "json" : json
-                          },
-
-                  }
-              );
-
-              if(response.redirected){
-                  sessionStorage.setItem('status','loggedIn');
-                  sessionStorage.setItem('username', document.getElementById('username').value);
-                  window.location.href = (response.url);
-              }
-
-          }
-      </script>
 </body>
 </html>

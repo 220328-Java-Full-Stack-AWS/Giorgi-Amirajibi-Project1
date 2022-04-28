@@ -16,6 +16,7 @@ public class LoginServlet extends HttpServlet {
 
         JSONObject currentUser = new JSONObject(req.getHeader("json"));
         UserDAO userDAO = new UserDAO();
+
         JSONObject response = userDAO.select(currentUser);
 
         if (response.getString("status").equals("success")){
@@ -38,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 
         }
         else {
-            //exception
+            resp.setStatus(404);
+            resp.setHeader("error", response.getString("reason"));
         }
 
 
