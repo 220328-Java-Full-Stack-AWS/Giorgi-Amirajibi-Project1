@@ -134,7 +134,7 @@ async function viewReimb(){
             '<tr id="' + json[i].reimbId + '">' +
             "<td>" + json[i].reimbAuthorUserName + "</td>" +
             "<td>" + json[i].reimbDescription + "</td>" +
-            "<td>" + json[i].reimbAmount + "$" + "</td>" +
+            "<td>" + "$" + json[i].reimbAmount + "</td>" +
             "<td>" + json[i].reimbType + "</td>" +
             "<td>" + json[i].reimbStatus + "</td>" +
             "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
@@ -190,7 +190,7 @@ async function filterTable(statusSelection){
                 '<tr id="' + json[i].reimbId + '">' +
                 "<td>" + json[i].reimbAuthorUserName + "</td>" +
                 "<td>" + json[i].reimbDescription + "</td>" +
-                "<td>" + json[i].reimbAmount + "$" + "</td>" +
+                "<td>" + "$" + json[i].reimbAmount + "</td>" +
                 "<td>" + json[i].reimbType + "</td>" +
                 "<td>" + json[i].reimbStatus + "</td>" +
                 "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
@@ -203,7 +203,7 @@ async function filterTable(statusSelection){
                 '<tr id="' + json[i].reimbId + '">' +
                 "<td>" + json[i].reimbAuthorUserName + "</td>" +
                 "<td>" + json[i].reimbDescription + "</td>" +
-                "<td>" + json[i].reimbAmount + "$" + "</td>" +
+                "<td>" + "$" + json[i].reimbAmount + "</td>" +
                 "<td>" + json[i].reimbType + "</td>" +
                 "<td>" + json[i].reimbStatus + "</td>" +
                 "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +

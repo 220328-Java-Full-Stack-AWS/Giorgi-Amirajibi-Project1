@@ -30,7 +30,7 @@ async function viewReimb(){
             let tableRow =
                 '<tr id="' + "trView" + json[i].reimbId + '">' +
                 "<td>" + json[i].reimbDescription + "</td>" +
-                "<td>" + json[i].reimbAmount + "$" + "</td>" +
+                "<td>" + "$" + json[i].reimbAmount + "</td>" +
                 "<td>" + json[i].reimbType + "</td>" +
                 "<td>" + json[i].reimbStatus + "</td>" +
                 "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
@@ -43,7 +43,7 @@ async function viewReimb(){
             let tableRow =
                 '<tr id="' + "trView" + json[i].reimbId + '">' +
                 "<td>" + json[i].reimbDescription + "</td>" +
-                "<td>" + json[i].reimbAmount + "$" + "</td>" +
+                "<td>" + "$" + json[i].reimbAmount + "</td>" +
                 "<td>" + json[i].reimbType + "</td>" +
                 "<td>" + json[i].reimbStatus + "</td>" +
                 "<td>" + json[i].reimbSubmitted.slice(0,19) + "</td>" +
@@ -155,8 +155,10 @@ function reimb(){
         "  <option value='FOOD'>Food</option>" +
         "  <option value='TRAVEL'>Travel</option>" +
         "</select><br>" +
-        "<input type='number' min='0' id='reimbAmount' placeholder='Reimbursement Amount'><br>" +
-        "<input type='text' id='reimbDescription' placeholder='Reimbursement Description'><br>" +
+        "<label for='number'>Reimbursement Type</label>" +
+        "<input name='number' type='number' min='0' id='reimbAmount' placeholder='Reimbursement Amount'><br>" +
+        "<label for='description'>Reimbursement Type</label>" +
+        "<input name='description'type='text' id='reimbDescription' placeholder='Reimbursement Description'><br>" +
         "<input type='submit' id='submit' type='submit' onclick='createReimb()'>";
 }
 

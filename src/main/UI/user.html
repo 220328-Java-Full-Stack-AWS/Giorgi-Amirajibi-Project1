@@ -14,11 +14,17 @@
     </script>
 </head>
 <body>
-    <input type="button" value="Create Reimbursement" onclick="reimb()">
-    <input type="button" value="View Reimbursement" onclick="viewReimb()">
-    <input type="button" value="Logout" onclick="logout()">
-    <br>
-    <p id="MainContent"></p>
+    <div class="outer">
+        <input type="button" value="Create Reimbursement" onclick="reimb()">
+        <input type="button" value="View Reimbursement" onclick="viewReimb()">
+        <input type="button" value="Logout" onclick="logout()">
+        <br>
+    </div>
+    <div class="container" style="display: inline-block">
+        <p id="MainContent"></p>
+    </div>
+
+
 
     <script src="user.js"></script>
 </body>
