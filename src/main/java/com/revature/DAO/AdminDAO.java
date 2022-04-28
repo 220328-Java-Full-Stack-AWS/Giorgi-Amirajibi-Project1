@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,33 @@ public class AdminDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject update(JSONObject jsonObject) {
-        return null;
+
+        int userId = jsonObject.getInt("userId");
+        int userRole = 0;
+        switch (jsonObject.getString("userRole")){
+            case "Employee":
+                userRole = 1;
+                break;
+            case "Financial Manager":
+                userRole = 2;
+                break;
+            case "Admin":
+                userRole = 3;
+                break;
+        }
+
+        try {
+            String sql = "UPDATE ers_users SET user_role_id = ? WHERE ers_user_id = ?";
+            PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,userRole);
+            preparedStatement.setInt(2,userId);
+            preparedStatement.executeUpdate();
+            jsonObject.put("status", "success");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     @Override
@@ -48,6 +75,14 @@ public class AdminDAO implements CRUDInterface<JSONObject> {
                 currentUser.setEmail(resultSet.getString(resultSet.findColumn("user_email")));
                 currentUser.setUserRoleId(resultSet.getInt(resultSet.findColumn("user_role_id")));
                 JSONObject jsonObject = new JSONObject(currentUser);
+                switch (resultSet.getInt(resultSet.findColumn("user_role_id"))){
+                    case 1: jsonObject.put("userRoleAsString","Employee");
+                            break;
+                    case 2: jsonObject.put("userRoleAsString","Financial Manager");
+                        break;
+                    case 3: jsonObject.put("userRoleAsString","Admin");
+                        break;
+                }
                 jsonObject.put("ers_user_id",resultSet.getString(resultSet.findColumn("ers_user_id")));
                 jsonObjectArrayList.add(jsonObject);
             }

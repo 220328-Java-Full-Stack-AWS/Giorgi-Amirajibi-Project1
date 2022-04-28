@@ -32,7 +32,7 @@ async function viewAllUsers(){
             "<td>" + json[i].firstname + "</td>" +
             "<td>" + json[i].lastname + "</td>" +
             "<td>" + json[i].email + "</td>" +
-            "<td>" + json[i].userRoleId + "</td>" +
+            "<td>" + json[i].userRoleAsString + "</td>" +
             "<td>" + "<input type='button' id='" + json[i].ers_user_id + "' name='edit' value='Edit' onclick='userEdit(this.id)'> " + "</td>" +
             "</tr>";
         document.getElementById("content").innerHTML += tableRow;
@@ -40,6 +40,57 @@ async function viewAllUsers(){
 
 }
 async function userEdit(ersUserId){
+    let data = document.getElementById(ersUserId).innerText.toString();
+    data = data.split("\t");
+    document.getElementById("MainContent").innerHTML =
+        "<table>" +
+        "<tr>" +
+        "    <th>User Id</th>" +
+        "    <th>Username</th>" +
+        "    <th>First Name</th>" +
+        "    <th>Last Name</th>" +
+        "    <th>Email</th>" +
+        "    <th>Privileges</th>" +
+        "</tr>" +
+        "    <tbody id='content'></tbody>"
+    "</table>";
+    let tableRow =
+        '<tr id="' + ersUserId + '">' +
+        "<td>" + data[0] + "</td>" +
+        "<td>" + data[1] + "</td>" +
+        "<td>" + data[2] + "</td>" +
+        "<td>" + data[3] + "</td>" +
+        "<td>" + data[4] + "</td>" +
+        "<td>" +
+            '<select class="' + "editData" + '" name="userRole" id="userRole">' +
+                "<option value='Employee'>Employee</option>" +
+                "<option value='Financial Manager'>Financial Manager</option>" +
+                "<option value='Admin'>Admin</option>" +
+            '</select>' +
+        "</td>" +
+        "<td>" + "<input type='button' id='" + ersUserId + "' name='submit' value='Submit' onclick='submitUserEdit(this.id)'> " + "</td>" +
+        "</tr>";
+    document.getElementById("content").innerHTML += tableRow;
+}
+async function submitUserEdit(ersUserId){
+    let data = new Object();
+    data.userId = ersUserId;
+    data.userRole = document.getElementsByClassName("editData")[0].value;
+    data = JSON.stringify(data);
+    console.log(data);
+    let response = await fetch(
+        "../selectUsers",
+        {
+            method: "PUT",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: data
+        }
+    );
+    if (response.status == 200){
+        viewAllUsers();
+    }
 
 }
 

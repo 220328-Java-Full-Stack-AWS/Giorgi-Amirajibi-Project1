@@ -50,9 +50,7 @@ public class ReimbursementAdminDAO implements CRUDInterface<JSONObject> {
 
     @Override
     public JSONObject update(JSONObject jsonObject) {
-        System.out.println("we are in dao update method");
         int reimbStatusId = jsonObject.getInt("reimbStatusId");
-        System.out.println("ReimbStatusId " + reimbStatusId);
 
         try {
             String reimbResolverUserName = jsonObject.getString("reimbResolver");

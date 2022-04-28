@@ -61,6 +61,7 @@ public class ReimbursementServletAdmin extends HttpServlet {
         JSONObject jsonObject = new JSONObject(requestData);
         ReimbursementAdminDAO reimbursementAdminDAO = new ReimbursementAdminDAO();
         reimbursementAdminDAO.update(jsonObject);
+        resp.setStatus(200);
         resp.setHeader("status", "success");
     }
     @Override
@@ -70,6 +71,7 @@ public class ReimbursementServletAdmin extends HttpServlet {
         System.out.println(jsonObject);
         ReimbursementAdminDAO reimbursementAdminDAO = new ReimbursementAdminDAO();
         reimbursementAdminDAO.delete(jsonObject);
+        resp.setStatus(200);
         resp.setHeader("status","success");
 
     }
