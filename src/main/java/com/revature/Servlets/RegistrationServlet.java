@@ -1,12 +1,8 @@
 package com.revature.Servlets;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.revature.Models.User;
 import com.revature.DAO.UserDAO;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

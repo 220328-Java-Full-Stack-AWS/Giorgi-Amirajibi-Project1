@@ -74,6 +74,8 @@ public class ReimbursementServlet extends HttpServlet {
         JSONObject jsonObject = new JSONObject(requestData);
         ReimbursementDAO reimbursementDAO = new ReimbursementDAO();
         reimbursementDAO.update(jsonObject);
+        System.out.println(jsonObject);
+        resp.setStatus(200);
         resp.setHeader("status", "success");
     }
 }

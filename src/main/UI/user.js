@@ -98,8 +98,8 @@ async function submitEdit(reimbId){
         document.getElementsByClassName("editData")[1].value,
         document.getElementsByClassName("editData")[2].value];
 
-    if (array[1].toString().endsWith("$")){
-        array[1] = array[1].toString().substring(0,array[1].toString().length - 1);
+    if (array[1].toString().startsWith("$")){
+        array[1] = array[1].toString().substring(1,array[1].toString().length);
     }
 
     let data = new Object();
@@ -149,16 +149,18 @@ async function reimbDelete(reimbId){
 function reimb(){
 
     document.getElementById("MainContent").innerHTML=
-        "<label for='reimbType'>Reimbursement Type</label>" +
+        "<div style='text-align: center;'>" +
+        "<label for='reimbType'>Reimbursement Type</label>" + "<br>" +
         "<select name='reimbType' id='reimbType'>" +
         "  <option value='LODGING'>Lodging</option>" +
         "  <option value='FOOD'>Food</option>" +
         "  <option value='TRAVEL'>Travel</option>" +
         "</select><br>" +
-        "<label for='number'>Reimbursement Type</label>" +
-        "<input name='number' type='number' min='0' id='reimbAmount' placeholder='Reimbursement Amount'><br>" +
-        "<label for='description'>Reimbursement Type</label>" +
-        "<input name='description'type='text' id='reimbDescription' placeholder='Reimbursement Description'><br>" +
+            "<label for='reimbAmount'>Reimbursement Amount</label>" + "<br>" +
+            "<input name='number' type='number' min='0' id='reimbAmount' placeholder='Reimbursement Amount'><br>" +
+            "<label for='reimbDescription'> Reimbursement Description</label>" + "<br>" +
+            "<input name='description'type='text' id='reimbDescription' placeholder='Reimbursement Desc'><br>" +
+        "</div>" +
         "<input type='submit' id='submit' type='submit' onclick='createReimb()'>";
 }
 
