@@ -1,12 +1,16 @@
+/*
 async function viewReimb(){
     document.getElementById("MainContent").innerHTML =
         "<table>" +
         "<tr>" +
+        "    <th>Author</th>" +
         "    <th>Description</th>" +
         "    <th>Amount</th>" +
         "    <th>Type</th>" +
         "    <th>Status</th>" +
         "    <th>Submitted</th>" +
+        "    <th>Resolved</th>" +
+        "    <th>Resolver</th>" +
         "</tr>" +
         "    <tbody id='content'></tbody>"
     "</table>";
@@ -41,8 +45,7 @@ async function viewReimb(){
 
 
 }
-
-
+*/
 async function viewReimb(){
     document.getElementById("MainContent").innerHTML =
         "<table>" +
@@ -83,8 +86,6 @@ async function viewReimb(){
             "</tr>";
         document.getElementById("content").innerHTML += tableRow;
     }
-
-
 }
 
 async function reimbEdit(reimbId){

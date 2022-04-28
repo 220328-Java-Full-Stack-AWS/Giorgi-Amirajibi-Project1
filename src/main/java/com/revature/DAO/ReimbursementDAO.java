@@ -103,18 +103,23 @@ public class ReimbursementDAO implements CRUDInterface<JSONObject> {
     }
 
     public List<JSONObject> selectAll(String username) {
+
         List<JSONObject> reimbursementListJson = new ArrayList<>();
         try {
+
             String selectUserIdSQL = "SELECT ers_user_id FROM ers_users WHERE ers_username = ?";
             PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(selectUserIdSQL);
             ps.setString(1,username);
             ResultSet rs = ps.executeQuery();
             rs.next();
             int userId = rs.getInt(rs.findColumn("ers_user_id"));
+
+
             String sql = "SELECT * FROM ers_reimbursement WHERE reimb_author = ?";
             PreparedStatement preparedStatement = ConnectionManager.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()){
                 Reimbursement reimbursement = new Reimbursement();
                 reimbursement.setReimbId(resultSet.getInt(resultSet.findColumn("reimb_id")));
