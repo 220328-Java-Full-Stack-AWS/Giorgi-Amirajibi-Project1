@@ -130,7 +130,7 @@ async function viewReimb(){
 
     let json = JSON.parse(response.headers.get("json"));
     for (let i = 0; i < json.length; i++) {
-        if (json[i].reimbAuthorUserName == sessionStorage.getItem("username")){
+        if (json[i].reimbAuthorUserName == sessionStorage.getItem("username") ){
             let tableRow =
                 '<tr id="' + json[i].reimbId + '">' +
                 "<td>" + json[i].reimbAuthorUserName + "</td>" +
